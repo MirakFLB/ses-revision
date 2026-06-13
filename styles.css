@@ -705,3 +705,19 @@ a.src:hover { color: var(--gold); text-decoration: underline; text-underline-off
 .resume-list li { position: relative; padding-left: 18px; font-size: 14.5px; line-height: 1.55; color: var(--text); }
 .resume-list li::before { content: ""; position: absolute; left: 0; top: 9px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent, var(--gold)); }
 
+
+/* ---- Cours structuré (leçon I / A / points + à retenir) ---- */
+.coeur-text { font-size: 16px; line-height: 1.7; color: var(--text); margin: 0; }
+.lecon { display: flex; flex-direction: column; gap: 20px; }
+.lec-h1 { font-family: var(--serif); font-size: 18px; font-weight: 600; color: var(--text); margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid color-mix(in srgb, var(--accent, var(--gold)) 35%, transparent); }
+.lec-sub { margin: 0 0 13px; }
+.lec-sub:last-child { margin-bottom: 0; }
+.lec-h2 { font-size: 14.5px; font-weight: 700; color: var(--accent, var(--gold)); margin: 0 0 7px; }
+.lec-points { margin: 0; padding-left: 19px; display: flex; flex-direction: column; gap: 7px; }
+.lec-points li { font-size: 14.5px; line-height: 1.6; color: var(--text-2); }
+.lec-points li::marker { color: var(--accent, var(--gold)); }
+.lec-retenir { margin-top: 4px; background: var(--accent-soft, var(--gold-soft)); border: 1px solid color-mix(in srgb, var(--accent, var(--gold)) 32%, transparent); border-radius: 14px; padding: 14px 18px; }
+.lec-retenir-h { font-weight: 700; font-size: 12px; letter-spacing: .04em; color: var(--accent, var(--gold)); margin-bottom: 9px; text-transform: uppercase; }
+.lec-retenir ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+.lec-retenir li { font-size: 13.5px; line-height: 1.55; color: var(--text); }
+

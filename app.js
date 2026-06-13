@@ -296,6 +296,18 @@
       ${blocks}</div>`;
   }
 
+  /* ---- rendu d'un cours structuré (I / A / points + à retenir) ---- */
+  function lessonHTML(lecon){
+    if (!lecon || !lecon.parties) return "";
+    const parts = lecon.parties.map(P=>{
+      const direct = (P.p||[]).length ? `<ul class="lec-points">${P.p.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>` : "";
+      const subs = (P.sub||[]).map(S=>`<div class="lec-sub"><h5 class="lec-h2">${esc(S.t)}</h5><ul class="lec-points">${(S.p||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
+      return `<section class="lec-part"><h4 class="lec-h1">${esc(P.t)}</h4>${direct}${subs}</section>`;
+    }).join("");
+    const ret = (lecon.retenir||[]).map(x=>`<li>${esc(x)}</li>`).join("");
+    return `<div class="lecon">${parts}${ret?`<div class="lec-retenir"><div class="lec-retenir-h">📌 À retenir</div><ul>${ret}</ul></div>`:""}</div>`;
+  }
+
   /* ---- chapter detail with tabs ---- */
   let chapTab = "cours";
   function renderChapter(id){
@@ -307,11 +319,11 @@
     let body = "";
     if (chapTab === "cours"){
       const cours = (ct.cours||[]).map(b=>`<li>${esc(b)}</li>`).join("");
-      const resume = (ct.resume||[]).map(b=>`<li>${esc(b)}</li>`).join("");
+      const lecon = lessonHTML(ct.lecon);
       const chiffres = (ct.chiffres||[]).map(c2=>`<div class="figrow"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M4 19V5m0 14h16M8 16v-4m4 4V8m4 8v-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>${esc(c2.d)} ${srcLink(c2)}</span></div>`).join("");
       body = `<div class="cours-block">
-        ${resume?`<h3 class="sub3">Cours résumé <span class="aide-tag">l'essentiel à retenir</span></h3><ul class="resume-list">${resume}</ul><h3 class="sub3" style="margin-top:26px">L'essentiel <span class="aide-tag">synthèse</span></h3>`:`<h3 class="sub3">L'essentiel <span class="aide-tag">synthèse</span></h3>`}
-        <ul class="cours-list">${cours||"<li class='muted'>—</li>"}</ul>
+        ${ct.lecon&&ct.lecon.intro?`<p class="coeur-text" style="margin-bottom:22px">${esc(ct.lecon.intro)}</p>`:""}
+        ${lecon || `<h3 class="sub3">L'essentiel <span class="aide-tag">synthèse</span></h3><ul class="cours-list">${cours||"<li class='muted'>—</li>"}</ul>`}
         ${chiffres?`<h3 class="sub3" style="margin-top:24px">Chiffres-clés</h3><div class="figs">${chiffres}</div>`:""}</div>`;
     } else if (chapTab === "objectifs"){
       const cc=cp.cc, tg=cp.tg;
