@@ -307,8 +307,11 @@
     let body = "";
     if (chapTab === "cours"){
       const cours = (ct.cours||[]).map(b=>`<li>${esc(b)}</li>`).join("");
+      const resume = (ct.resume||[]).map(b=>`<li>${esc(b)}</li>`).join("");
       const chiffres = (ct.chiffres||[]).map(c2=>`<div class="figrow"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M4 19V5m0 14h16M8 16v-4m4 4V8m4 8v-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>${esc(c2.d)} ${srcLink(c2)}</span></div>`).join("");
-      body = `<div class="cours-block"><h3 class="sub3">L'essentiel <span class="aide-tag">synthèse</span></h3><ul class="cours-list">${cours||"<li class='muted'>—</li>"}</ul>
+      body = `<div class="cours-block">
+        ${resume?`<h3 class="sub3">Cours résumé <span class="aide-tag">l'essentiel à retenir</span></h3><ul class="resume-list">${resume}</ul><h3 class="sub3" style="margin-top:26px">L'essentiel <span class="aide-tag">synthèse</span></h3>`:`<h3 class="sub3">L'essentiel <span class="aide-tag">synthèse</span></h3>`}
+        <ul class="cours-list">${cours||"<li class='muted'>—</li>"}</ul>
         ${chiffres?`<h3 class="sub3" style="margin-top:24px">Chiffres-clés</h3><div class="figs">${chiffres}</div>`:""}</div>`;
     } else if (chapTab === "objectifs"){
       const cc=cp.cc, tg=cp.tg;
