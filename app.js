@@ -316,17 +316,22 @@
     const c = chapterById[id]; if (!c) return renderDashboard();
     const p = partOf[id]; const cp = chapProgress(c); const ct = CONTENT[id] || {};
     const idx = orderedChapters.indexOf(c); const prev = orderedChapters[idx-1], next = orderedChapters[idx+1];
-    const tabs = [["cours","L'essentiel"],["objectifs","Objectifs"],["notions","Notions"],["auteurs","Auteurs"]];
+    const tabs = [["cours","L'essentiel"],["lecon","Cours"],["objectifs","Objectifs"],["notions","Notions"],["auteurs","Auteurs"]];
     const tabBtns = tabs.map(t => `<button class="tab ${chapTab===t[0]?"on":""}" data-act="tab" data-tab="${t[0]}">${t[1]}</button>`).join("");
     let body = "";
     if (chapTab === "cours"){
       const cours = (ct.cours||[]).map(b=>`<li>${esc(b)}</li>`).join("");
-      const lecon = lessonHTML(ct.lecon);
       const chiffres = (ct.chiffres||[]).map(c2=>`<div class="figrow"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M4 19V5m0 14h16M8 16v-4m4 4V8m4 8v-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>${esc(c2.d)} ${srcLink(c2)}</span></div>`).join("");
       body = `<div class="cours-block">
-        ${ct.lecon&&ct.lecon.intro?`<p class="coeur-text" style="margin-bottom:22px">${esc(ct.lecon.intro)}</p>`:""}
-        ${lecon || `<h3 class="sub3">L'essentiel <span class="aide-tag">synthèse</span></h3><ul class="cours-list">${cours||"<li class='muted'>—</li>"}</ul>`}
-        ${chiffres?`<h3 class="sub3" style="margin-top:24px">Chiffres-clés</h3><div class="figs">${chiffres}</div>`:""}</div>`;
+        <h3 class="sub3">L'essentiel <span class="aide-tag">synthèse</span></h3>
+        <ul class="cours-list">${cours||"<li class='muted'>—</li>"}</ul>
+        ${chiffres?`<h3 class="sub3" style="margin-top:24px">Chiffres-clés</h3><div class="figs">${chiffres}</div>`:""}
+        ${ct.lecon?`<div class="toolbar" style="margin-top:24px"><button class="btn" data-act="tab" data-tab="lecon"><svg viewBox="0 0 24 24" width="17" height="17"><path d="M6 3h9l5 5v13H6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.7"/></svg> Lire le cours complet</button></div>`:""}</div>`;
+    } else if (chapTab === "lecon"){
+      const lecon = lessonHTML(ct.lecon);
+      body = `<div class="cours-block lecon-wrap">
+        ${ct.lecon&&ct.lecon.intro?`<p class="coeur-text" style="margin-bottom:24px">${esc(ct.lecon.intro)}</p>`:""}
+        ${lecon||`<p class="muted">Cours à venir.</p>`}</div>`;
     } else if (chapTab === "objectifs"){
       const cc=cp.cc, tg=cp.tg;
       const objs = c.objectifs.map((o,i)=>{ const oid=c.id+"#o"+i; const done=objDone(c,i); const subs=objSubs(o); const thr=objThreshold(c,i);

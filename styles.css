@@ -729,3 +729,8 @@ a.src:hover { color: var(--gold); text-decoration: underline; text-underline-off
 .lec-sub { margin-bottom: 16px; }
 .lec-part { margin-bottom: 6px; }
 
+
+/* ---- Confort de lecture du cours complet ---- */
+.lecon-wrap { max-width: 760px; }
+.lecon-wrap .lec-p { font-size: 15px; line-height: 1.75; }
+

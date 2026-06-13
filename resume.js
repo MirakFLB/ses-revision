@@ -1,39 +1,38 @@
 /* =====================================================================
-   SES — COURS RÉDIGÉ par chapitre (intro problématisée + I/A développés
-   + conclusion + à retenir). window.SES_CONTENT[id].lecon — affiché dans
-   l'onglet « L'essentiel ».
+   SES — COURS COMPLET RÉDIGÉ par chapitre. Onglet « Cours ».
+   Intro problématisée + I/A développés + transitions + conclusion + à retenir.
    ===================================================================== */
 (function () {
   var C = window.SES_CONTENT; if (!C) return;
   function set(id, lecon){ if (C[id]) C[id].lecon = lecon; }
 
   set("eco-croissance", {
-    intro: "La croissance économique est l'augmentation soutenue, sur longue période, de la production de richesses d'un pays. On la mesure par le taux de croissance du PIB en volume, c'est-à-dire corrigé de l'inflation, pour saisir l'évolution réelle des quantités produites. La croissance est l'objet d'enjeux majeurs (emploi, niveau de vie, financement de la protection sociale), mais elle soulève aussi deux grandes questions : d'où vient-elle vraiment, et comment la rendre compatible avec la préservation de l'environnement ?",
+    intro: "La croissance économique est l'augmentation soutenue, sur longue période, de la production de richesses d'un pays. On la mesure par le taux de croissance du PIB en volume, c'est-à-dire corrigé de l'inflation, pour saisir l'évolution réelle des quantités produites. La croissance conditionne l'emploi, le niveau de vie et le financement de la protection sociale, mais elle soulève deux grandes questions : d'où vient-elle vraiment, et comment la rendre compatible avec la préservation de l'environnement ?",
     parties: [
       { t: "I. Les sources de la croissance", sub: [
         { t: "A. L'accumulation des facteurs de production", p: [
-          "La première source de croissance est quantitative : augmenter la quantité de travail (plus d'actifs, plus d'heures) et de capital (machines, infrastructures). On parle de croissance extensive.",
-          "Mais cette source connaît une limite : la loi des rendements décroissants. À mesure qu'on ajoute du capital à quantité de travail donnée, chaque unité supplémentaire rapporte de moins en moins. L'accumulation seule ne peut donc entretenir indéfiniment la croissance." ] },
+          "La première source de croissance est quantitative : augmenter la quantité de travail (plus d'actifs, plus d'heures travaillées) et de capital (machines, infrastructures, locaux). On parle de croissance extensive.",
+          "Mais cette source connaît une limite : la loi des rendements décroissants. À quantité de travail donnée, chaque unité de capital ajoutée rapporte de moins en moins. L'accumulation seule ne peut donc entretenir indéfiniment la croissance : il faut une autre source." ] },
         { t: "B. La productivité globale des facteurs (PGF)", p: [
-          "La seconde source est qualitative : produire plus avec les mêmes facteurs, en améliorant leur efficacité. C'est la PGF, ce que Solow a appelé le « résidu » — la part de la croissance que l'accumulation n'explique pas (jusqu'aux deux tiers de la croissance dans les pays développés).",
-          "Cette croissance intensive est tirée par le progrès technique. C'est elle qui explique la prospérité des Trente Glorieuses (1945-1975), portées par de très forts gains de productivité." ] }
+          "La seconde source est qualitative : produire plus avec les mêmes facteurs, en améliorant leur efficacité. C'est la PGF, ce que Solow a appelé le « résidu » — la part de la croissance que la seule accumulation n'explique pas (jusqu'aux deux tiers de la croissance dans les pays développés). On parle alors de croissance intensive.",
+          "Cette PGF est tirée surtout par le progrès technique, qui permet de combiner plus efficacement travail et capital. C'est elle qui explique la prospérité des Trente Glorieuses (1945-1975), portées par de très forts gains de productivité." ] }
       ],
         trans: "Reste à comprendre d'où vient ce progrès technique, moteur de la PGF : est-il un don du hasard, ou peut-on l'entretenir ?" },
       { t: "II. Le rôle du progrès technique et des institutions", sub: [
         { t: "A. Un progrès technique endogène", p: [
-          "Pour Solow, le progrès technique était « exogène », tombé du ciel. Les théories de la croissance endogène (Romer, Aghion, années 1980) montrent au contraire qu'il est produit par l'économie elle-même : il résulte des investissements en R&D, en innovation et en capital humain (éducation, santé, formation).",
-          "Ces investissements ont des rendements croissants et des effets de diffusion : une connaissance, une fois produite, profite à tous sans se détruire. La croissance peut donc s'auto-entretenir." ] },
+          "Pour Solow, le progrès technique était « exogène », tombé du ciel. Les théories de la croissance endogène (Romer, Aghion, années 1980) montrent au contraire qu'il est produit par l'économie elle-même : il résulte des investissements en recherche-développement, en innovation et en capital humain (éducation, santé, formation).",
+          "Ces investissements ont des rendements croissants et des effets de diffusion : une connaissance, une fois produite, profite à tous sans se détruire. La croissance peut donc s'auto-entretenir, à condition d'investir." ] },
         { t: "B. L'importance des institutions", p: [
-          "Le progrès technique ne se déploie que si le cadre institutionnel l'encourage. Les droits de propriété, en particulier les brevets, garantissent à l'innovateur l'appropriation des fruits de son innovation : sans cette protection, pourquoi investir et prendre des risques ?",
-          "Schumpeter ajoute que l'innovation procède par « destruction créatrice » : les nouvelles activités (le numérique, par exemple) détruisent les anciennes (le commerce traditionnel) tout en créant de nouveaux emplois et de nouvelles richesses. La croissance est donc un processus de transformation permanente, parfois douloureux." ] }
+          "Le progrès technique ne se déploie que si le cadre institutionnel l'encourage. Les droits de propriété, en particulier les brevets, garantissent à l'innovateur l'appropriation des fruits de son innovation : sans cette protection, pourquoi prendre le risque d'investir ?",
+          "Schumpeter ajoute que l'innovation procède par « destruction créatrice » : les nouvelles activités (le numérique, par exemple) détruisent les anciennes (le commerce traditionnel) tout en créant de nouveaux emplois et de nouvelles richesses. La croissance est donc un processus de transformation permanente, jamais paisible." ] }
       ],
         trans: "Cette croissance, si désirable soit-elle, est-elle pour autant sans revers ?" },
       { t: "III. Les défis de la croissance", sub: [
         { t: "A. Les inégalités", p: [
-          "Le progrès technique est souvent « biaisé » en faveur du travail qualifié : il augmente la demande de travailleurs formés et réduit celle des moins qualifiés (automatisation des tâches routinières). Il peut donc creuser les inégalités de revenus au sein des sociétés." ] },
+          "Le progrès technique est souvent « biaisé » en faveur du travail qualifié : il augmente la demande de travailleurs formés et réduit celle des moins qualifiés (automatisation des tâches routinières). Il peut donc creuser les inégalités de revenus au sein des sociétés, même quand la richesse globale augmente." ] },
         { t: "B. La soutenabilité écologique", p: [
           "La croissance se heurte à des limites écologiques : épuisement des ressources, pollution, réchauffement climatique. Le débat oppose la soutenabilité faible (le capital technique peut se substituer au capital naturel détruit) et la soutenabilité forte (certains capitaux naturels sont irremplaçables et doivent être préservés).",
-          "L'innovation (technologies vertes) peut reculer ces limites, mais ne les supprime pas : c'est tout l'enjeu d'une croissance « soutenable »." ] }
+          "L'innovation (technologies vertes) peut reculer ces limites, mais ne les supprime pas : c'est tout l'enjeu d'une croissance dite « soutenable »." ] }
       ]}
     ],
     conclusion: "La croissance ne se réduit donc pas à l'accumulation de facteurs : son moteur profond est le progrès technique, lui-même produit par l'innovation et soutenu par les institutions. Mais cette croissance n'est ni automatiquement partagée (risque d'inégalités) ni automatiquement durable (limites écologiques). Tout l'enjeu des politiques économiques contemporaines est de la rendre à la fois inclusive et soutenable.",
@@ -45,26 +44,30 @@
   });
 
   set("eco-commerce", {
-    intro: "Le commerce international (les échanges de biens et services entre pays) et l'internationalisation de la production (la fragmentation des chaînes de fabrication à l'échelle mondiale) sont au cœur de la mondialisation. Leur essor a été considérable depuis 1945. Mais s'ils profitent globalement aux économies, ils font aussi des perdants. Le problème est donc double : qu'est-ce qui fonde et explique ces échanges, et qui en sont les gagnants et les perdants ?",
+    intro: "Le commerce international (les échanges de biens et services entre pays) et l'internationalisation de la production (la fragmentation des chaînes de fabrication à l'échelle mondiale) sont au cœur de la mondialisation, fortement développée depuis 1945. S'ils profitent globalement aux économies, ils font aussi des perdants. Le problème est donc double : qu'est-ce qui fonde et explique ces échanges, et qui en sont les gagnants et les perdants ?",
     parties: [
       { t: "I. Les fondements du commerce international", sub: [
         { t: "A. Avantages comparatifs et dotations factorielles", p: [
-          "Ricardo établit la théorie des avantages comparatifs : même un pays désavantagé partout a intérêt à se spécialiser dans la production où son désavantage est le plus faible (ou son avantage le plus fort), puis à échanger. Chacun y gagne, car la spécialisation accroît la production mondiale.",
-          "La théorie HOS (Heckscher-Ohlin-Samuelson) précise : un pays exporte les biens qui utilisent intensément le facteur dont il est le mieux doté (un pays riche en main-d'œuvre exportera des biens à forte intensité de travail)." ] },
+          "Ricardo établit la théorie des avantages comparatifs : même un pays désavantagé partout a intérêt à se spécialiser dans la production où son désavantage est le plus faible (ou son avantage le plus fort), puis à échanger. Chacun y gagne, car la spécialisation accroît la production mondiale totale.",
+          "La théorie HOS (Heckscher-Ohlin-Samuelson) précise l'origine de ces avantages : un pays exporte les biens qui utilisent intensément le facteur dont il est le mieux doté (un pays riche en main-d'œuvre exportera des biens à forte intensité de travail)." ] },
         { t: "B. Le commerce entre pays comparables", p: [
-          "Ces théories n'expliquent toutefois pas l'essentiel du commerce actuel, qui se fait entre pays développés semblables. Ce commerce intra-branche (échange de produits similaires : la France exporte ET importe des automobiles) s'explique par la différenciation des produits, la recherche de qualité et de variété par les consommateurs." ] }
+          "Ces théories n'expliquent toutefois pas l'essentiel du commerce actuel, qui se fait entre pays développés semblables. Ce commerce intra-branche (échange de produits similaires : la France exporte ET importe des automobiles) s'explique par la différenciation des produits et la recherche de qualité et de variété par les consommateurs." ] }
       ],
-        trans: "Au-delà des dotations, ce sont aussi les stratégies des firmes qui structurent le commerce mondial." },
+        trans: "Au-delà des dotations des pays, ce sont aussi les stratégies des firmes qui structurent le commerce mondial." },
       { t: "II. Compétitivité et internationalisation de la production", sub: [
-        { t: "A. La compétitivité", p: [
-          "La productivité des firmes fonde la compétitivité d'un pays, c'est-à-dire sa capacité à exporter. On distingue la compétitivité-prix (vendre moins cher, grâce à des coûts plus faibles ou un change favorable) et la compétitivité hors-prix ou structurelle (la qualité, l'innovation, l'image, le service après-vente)." ] },
+        { t: "A. La compétitivité des firmes et des pays", p: [
+          "La productivité des firmes fonde la compétitivité d'un pays, c'est-à-dire son aptitude à exporter. On distingue la compétitivité-prix (vendre moins cher, grâce à des coûts plus faibles ou un taux de change favorable) et la compétitivité hors-prix ou structurelle (la qualité, l'innovation, l'image de marque, le service)." ] },
         { t: "B. La chaîne de valeur mondiale (DIPP)", p: [
           "Les firmes multinationales pratiquent la décomposition internationale du processus productif (DIPP) : elles fragmentent la chaîne de valeur et localisent chaque étape (conception, fabrication des composants, assemblage) là où elle est la plus avantageuse. Un smartphone est ainsi conçu dans un pays, ses composants fabriqués dans plusieurs autres, l'ensemble assemblé ailleurs." ] }
       ],
         trans: "Si le commerce enrichit globalement, pourquoi suscite-t-il tant de débats et de résistances ?" },
-      { t: "III. Les effets du commerce et le débat", p: [
-        "Les effets globaux sont positifs : gains moyens pour les consommateurs (baisse des prix, plus de choix) et réduction des inégalités entre pays (les pays émergents rattrapent leur retard).",
-        "Mais au sein de chaque pays, le commerce accroît souvent les inégalités : certains secteurs et travailleurs (peu qualifiés, exposés à la concurrence) perdent leur emploi, tandis que d'autres en bénéficient. D'où le débat entre libre-échange (qui maximise l'efficacité par la spécialisation) et protectionnisme (qui protège les emplois et les industries naissantes, mais au risque de représailles et de hausse des prix)." ]}
+      { t: "III. Les effets du commerce et le débat", sub: [
+        { t: "A. Des gagnants et des perdants", p: [
+          "Les effets globaux sont positifs : gains moyens pour les consommateurs (baisse des prix, plus de choix) et réduction des inégalités entre pays (les pays émergents rattrapent leur retard).",
+          "Mais au sein de chaque pays, le commerce accroît souvent les inégalités : certains secteurs et travailleurs (peu qualifiés, exposés à la concurrence) perdent leur emploi, tandis que d'autres en bénéficient." ] },
+        { t: "B. Libre-échange ou protectionnisme ?", p: [
+          "D'où le débat entre libre-échange (qui maximise l'efficacité par la spécialisation) et protectionnisme (qui protège les emplois et les industries naissantes par des droits de douane ou des quotas, mais au risque de représailles, de hausse des prix et de perte d'efficacité)." ] }
+      ]}
     ],
     conclusion: "Le commerce international repose sur la spécialisation (avantages comparatifs, dotations) et sur les stratégies des firmes (compétitivité, chaînes de valeur). S'il accroît la richesse globale et réduit les écarts entre nations, il produit des perdants à l'intérieur de chaque pays — d'où la nécessité de politiques d'accompagnement (formation, redistribution) plus que d'un repli protectionniste.",
     retenir: [
@@ -78,7 +81,8 @@
     parties: [
       { t: "I. Mesurer et distinguer le chômage", sub: [
         { t: "A. Définitions et indicateurs", p: [
-          "Le taux de chômage rapporte le nombre de chômeurs à la population active (actifs occupés + chômeurs) ; le taux d'emploi rapporte les actifs occupés à la population en âge de travailler. À côté du chômage, le sous-emploi (temps partiel subi) et le « halo du chômage » (les découragés qui ne cherchent plus) montrent que les frontières sont floues." ] },
+          "Le taux de chômage rapporte le nombre de chômeurs à la population active (actifs occupés + chômeurs) ; le taux d'emploi rapporte les actifs occupés à la population en âge de travailler.",
+          "À côté du chômage, le sous-emploi (temps partiel subi) et le « halo du chômage » (les découragés qui ne cherchent plus, donc non comptés) montrent que les frontières sont floues et que le seul taux de chômage ne dit pas tout." ] },
         { t: "B. Chômage conjoncturel et structurel", p: [
           "Le chômage conjoncturel est lié au ralentissement de l'activité : quand la demande globale fléchit, les entreprises produisent et embauchent moins.",
           "Le chômage structurel est durable et indépendant de la conjoncture : il tient au fonctionnement même du marché du travail. C'est sur lui que se concentrent les analyses des causes profondes." ] }
@@ -86,15 +90,18 @@
         trans: "Quelles sont précisément les causes de ce chômage structurel, le plus difficile à résorber ?" },
       { t: "II. Les causes du chômage structurel", sub: [
         { t: "A. Appariement et asymétries d'information", p: [
-          "Le marché du travail souffre de problèmes d'appariement : il existe des emplois vacants et des chômeurs en même temps, faute de correspondance entre les compétences offertes et demandées (inadéquations de qualifications) ou les localisations.",
-          "Le salaire d'efficience explique aussi un chômage : l'employeur verse un salaire supérieur à l'équilibre pour motiver et retenir ses salariés (asymétrie d'information sur leur effort), ce qui réduit le nombre d'embauches possibles." ] },
+          "Le marché du travail souffre de problèmes d'appariement : il existe des emplois vacants et des chômeurs en même temps, faute de correspondance entre les compétences offertes et demandées (inadéquations de qualifications) ou entre les localisations.",
+          "Le salaire d'efficience explique aussi un chômage : l'employeur verse un salaire supérieur à l'équilibre pour motiver et retenir ses salariés (face à l'asymétrie d'information sur leur effort), ce qui réduit le nombre d'embauches possibles." ] },
         { t: "B. Le rôle ambivalent des institutions", p: [
           "Les institutions du marché du travail (salaire minimum, règles de protection de l'emploi, indemnisation) protègent les salariés et soutiennent la demande, mais peuvent, selon certaines analyses, freiner les embauches en augmentant le coût ou le risque associé à l'emploi. Leurs effets sur le chômage structurel sont donc débattus." ] }
       ],
         trans: "À chaque type de chômage correspondent des politiques différentes." },
-      { t: "III. Les politiques de lutte contre le chômage", p: [
-        "Contre le chômage conjoncturel, on agit sur la demande globale : politiques de relance budgétaire (dépenses publiques, baisses d'impôts) ou monétaire (baisse des taux d'intérêt) pour stimuler l'activité.",
-        "Contre le chômage structurel, on agit sur l'offre et le fonctionnement du marché : allègement du coût du travail (baisses de cotisations), politiques de formation (pour réduire les inadéquations de qualifications) et flexibilisation (assouplir les rigidités). Ces politiques sont elles aussi discutées quant à leur efficacité et leurs effets sociaux." ]}
+      { t: "III. Les politiques de lutte contre le chômage", sub: [
+        { t: "A. Agir sur la demande", p: [
+          "Contre le chômage conjoncturel, on agit sur la demande globale : politiques de relance budgétaire (dépenses publiques, baisses d'impôts) ou monétaire (baisse des taux d'intérêt) pour stimuler l'activité et donc l'emploi." ] },
+        { t: "B. Agir sur le marché du travail", p: [
+          "Contre le chômage structurel, on agit sur l'offre et le fonctionnement du marché : allègement du coût du travail (baisses de cotisations sociales), politiques de formation (pour réduire les inadéquations de qualifications) et flexibilisation (assouplir les rigidités). Ces politiques sont elles aussi discutées quant à leur efficacité et leurs effets sociaux." ] }
+      ]}
     ],
     conclusion: "Le chômage n'a pas une cause unique : il faut distinguer sa composante conjoncturelle (insuffisance de la demande) et structurelle (fonctionnement du marché, institutions, qualifications). C'est pourquoi aucune politique unique ne suffit : la lutte contre le chômage combine soutien de la demande, formation, et réformes du marché du travail, dont l'équilibre fait l'objet de débats permanents.",
     retenir: [
@@ -114,11 +121,17 @@
           "La crise se propage au système bancaire. Une panique bancaire (bank run) survient quand les déposants, pris de défiance, retirent massivement et simultanément leurs fonds : même une banque solvable peut alors s'effondrer, faute de liquidités. La défiance se transmet de banque en banque (faillites en chaîne)." ] }
       ],
         trans: "Comment cette crise, née dans la sphère financière, contamine-t-elle l'économie réelle ?" },
-      { t: "II. La transmission à l'économie réelle", p: [
-        "Plusieurs canaux opèrent. L'effet de richesse négatif : appauvris par la chute de leur patrimoine, les ménages consomment moins. La baisse du prix du collatéral (les actifs servant de garantie) entraîne des ventes forcées qui aggravent la chute. Et la contraction du crédit (credit crunch) : les banques fragilisées prêtent moins, ce qui asphyxie l'investissement et la consommation." ]},
-      { t: "III. La régulation du système financier", p: [
-        "Pour prévenir ces crises, on régule les banques : supervision par la banque centrale, et surtout ratio de solvabilité (un niveau minimal de fonds propres pour absorber les pertes, fixé par les accords de Bâle).",
-        "L'objectif est de réduire l'aléa moral : la prise de risque excessive de banques qui se savent « too big to fail » (trop grosses pour faire faillite), donc sûres d'être sauvées par l'État en cas de crise — ce qui les incite à prendre toujours plus de risques." ]}
+      { t: "II. La transmission à l'économie réelle", sub: [
+        { t: "A. Les canaux de transmission", p: [
+          "Plusieurs canaux opèrent. L'effet de richesse négatif : appauvris par la chute de leur patrimoine, les ménages consomment moins. La baisse du prix du collatéral (les actifs servant de garantie aux emprunts) entraîne des ventes forcées qui aggravent la chute. Et la contraction du crédit (credit crunch) : les banques fragilisées prêtent moins, ce qui asphyxie l'investissement et la consommation." ] }
+      ],
+        trans: "Comment alors prévenir ces crises et limiter la prise de risque ?" },
+      { t: "III. La régulation du système financier", sub: [
+        { t: "A. Superviser et imposer des fonds propres", p: [
+          "Pour prévenir ces crises, on régule les banques : supervision par la banque centrale, et surtout ratio de solvabilité (un niveau minimal de fonds propres pour absorber les pertes, fixé par les accords de Bâle)." ] },
+        { t: "B. Réduire l'aléa moral", p: [
+          "L'objectif est de réduire l'aléa moral : la prise de risque excessive de banques qui se savent « too big to fail » (trop grosses pour faire faillite), donc sûres d'être sauvées par l'État en cas de crise — ce qui les incite à prendre toujours plus de risques aux frais de la collectivité." ] }
+      ]}
     ],
     conclusion: "Les crises financières naissent de l'emballement spéculatif et de la défiance, et se transmettent à l'économie réelle par la richesse, le collatéral et le crédit. Elles révèlent que les marchés financiers, loin d'être toujours efficients, peuvent être profondément instables — d'où la nécessité d'une régulation prudentielle qui limite l'aléa moral, sans pour autant supprimer tout risque.",
     retenir: [
@@ -135,7 +148,7 @@
         { t: "A. Le marché unique", p: [
           "Le marché unique (achevé en 1993) repose sur les « quatre libertés » : la libre circulation des biens, des services, des capitaux et des personnes. Il favorise la croissance par l'intensification de la concurrence, les économies d'échelle (des marchés plus vastes) et une plus grande variété pour les consommateurs." ] },
         { t: "B. La politique de la concurrence", p: [
-          "Pour que cette concurrence reste loyale, l'UE mène une politique de la concurrence : lutte contre les ententes et les abus de position dominante, contrôle des concentrations (fusions) et des aides d'État. Elle est parfois critiquée lorsqu'elle empêche l'émergence de « champions européens » face aux géants mondiaux." ] }
+          "Pour que cette concurrence reste loyale, l'UE mène une politique de la concurrence : lutte contre les ententes et les abus de position dominante, contrôle des concentrations (fusions) et des aides d'État. Elle est parfois critiquée lorsqu'elle empêche l'émergence de « champions européens » face aux géants américains et chinois." ] }
       ],
         trans: "À ce marché intégré s'ajoute, pour 20 pays, une monnaie commune — ce qui soulève la question de la coordination des politiques économiques." },
       { t: "II. Le partage des politiques conjoncturelles", sub: [
@@ -145,9 +158,12 @@
           "En revanche, la politique budgétaire reste nationale : chaque État décide de ses dépenses et de ses recettes. Mais cette autonomie est encadrée par les traités, qui imposent des règles sur les déficits et la dette publics pour préserver la stabilité de la monnaie commune." ] }
       ],
         trans: "Ce partage entre une monnaie unique et des budgets nationaux engendre des difficultés propres." },
-      { t: "III. Les difficultés de ce policy mix", p: [
-        "La première difficulté tient aux chocs asymétriques : une politique monétaire unique (un même taux d'intérêt pour tous) convient mal à des pays connaissant des situations économiques différentes — ce qui est bon pour l'un peut être néfaste pour l'autre.",
-        "La seconde est le défaut de coordination : les politiques budgétaires, restées nationales, sont difficiles à harmoniser, ce qui handicape la réponse commune aux crises (comme l'a montré la crise de la zone euro des années 2010)." ]}
+      { t: "III. Les difficultés de ce policy mix", sub: [
+        { t: "A. Les chocs asymétriques", p: [
+          "Une politique monétaire unique (un même taux d'intérêt pour tous) convient mal à des pays connaissant des situations économiques différentes : ce qui est bon pour une économie en surchauffe peut être néfaste pour une économie en récession." ] },
+        { t: "B. Le défaut de coordination", p: [
+          "Les politiques budgétaires, restées nationales, sont difficiles à harmoniser, ce qui handicape la réponse commune aux crises — comme l'a montré la crise de la zone euro des années 2010." ] }
+      ]}
     ],
     conclusion: "L'intégration européenne offre les bénéfices d'un grand marché et d'une monnaie stable, mais au prix d'une architecture déséquilibrée : une politique monétaire unique cohabite avec des politiques budgétaires nationales mal coordonnées. C'est cette tension, entre intégration monétaire et souveraineté budgétaire, qui constitue le principal défi de la zone euro.",
     retenir: [
@@ -163,12 +179,12 @@
         { t: "A. Une hiérarchie multidimensionnelle", p: [
           "La position sociale ne dépend pas d'un seul critère. L'espace social (Bourdieu) est hiérarchisé par la catégorie socioprofessionnelle (PCS), le revenu et le diplôme, mais aussi par l'âge, le sexe, le lieu de résidence et la composition du ménage. Ces facteurs se combinent et souvent se cumulent (capital économique ET capital culturel)." ] },
         { t: "B. Les grandes évolutions depuis 1950", p: [
-          "La structure socioprofessionnelle s'est profondément transformée : salarisation (la quasi-totalité des actifs sont aujourd'hui salariés), tertiarisation (l'emploi s'est déplacé vers les services), élévation générale du niveau de qualification et féminisation des emplois. La classe ouvrière a reculé, les professions intermédiaires et les cadres ont progressé." ] }
+          "La structure socioprofessionnelle s'est profondément transformée : salarisation (la quasi-totalité des actifs sont aujourd'hui salariés), tertiarisation (l'emploi s'est déplacé de l'industrie vers les services), élévation générale du niveau de qualification et féminisation des emplois. La classe ouvrière a reculé, les professions intermédiaires et les cadres ont progressé." ] }
       ],
         trans: "Ces positions hiérarchisées constituent-elles pour autant des classes sociales au sens fort ?" },
       { t: "II. L'analyse en termes de classes sociales", sub: [
         { t: "A. Deux traditions : Marx et Weber", p: [
-          "Pour Marx, les classes se définissent objectivement par la place dans les rapports de production : la bourgeoisie (qui possède les moyens de production) s'oppose au prolétariat. Une classe passe de l'état de classe « en soi » (une réalité objective) à celui de classe « pour soi » lorsqu'elle prend conscience de ses intérêts communs (conscience de classe).",
+          "Pour Marx, les classes se définissent objectivement par la place dans les rapports de production : la bourgeoisie (qui possède les moyens de production) s'oppose au prolétariat. Une classe passe de l'état de classe « en soi » (réalité objective) à celui de classe « pour soi » lorsqu'elle prend conscience de ses intérêts communs (conscience de classe).",
           "Weber propose une analyse multidimensionnelle : la hiérarchie sociale combine l'ordre économique (les classes), l'ordre social (les groupes de statut, fondés sur le prestige) et l'ordre politique (les partis)." ] },
         { t: "B. Les débats actuels", p: [
           "La pertinence des classes fait débat. La thèse de la moyennisation (années 1960-70) soulignait la constitution d'une vaste classe moyenne et la réduction des écarts. On insiste aujourd'hui sur l'individualisation (l'affaiblissement des appartenances collectives) et sur l'articulation avec le genre. Mais le retour des inégalités relance l'analyse en termes de classes." ] }
@@ -184,13 +200,16 @@
   set("socio-ecole", {
     intro: "Dans les sociétés démocratiques, l'École a une double mission : transmettre des savoirs et favoriser l'égalité des chances, c'est-à-dire permettre à chacun de réussir indépendamment de son origine sociale. L'accès à l'école s'est massivement élargi depuis les années 1950. Pourtant, les inégalités de réussite persistent. Le problème est donc de savoir si l'École réduit réellement les inégalités sociales, et d'où viennent les inégalités de réussite scolaire.",
     parties: [
-      { t: "I. Massification n'est pas démocratisation", p: [
-        "La massification scolaire désigne l'augmentation générale et quantitative des effectifs scolarisés et de l'accès aux diplômes : aujourd'hui, la quasi-totalité d'une génération atteint le lycée, et une part croissante l'enseignement supérieur.",
-        "Mais la démocratisation — la réduction des inégalités d'accès selon l'origine sociale — n'a pas suivi au même rythme. On parle parfois de « démocratisation ségrégative » : tout le monde monte d'un cran, mais les écarts entre milieux sociaux se déplacent vers les filières et les diplômes les plus prestigieux, sans se résorber." ],
+      { t: "I. Massification n'est pas démocratisation", sub: [
+        { t: "A. Deux processus distincts", p: [
+          "La massification scolaire désigne l'augmentation générale et quantitative des effectifs scolarisés et de l'accès aux diplômes : aujourd'hui, la quasi-totalité d'une génération atteint le lycée, et une part croissante l'enseignement supérieur.",
+          "Mais la démocratisation — la réduction des inégalités d'accès selon l'origine sociale — n'a pas suivi au même rythme. On parle parfois de « démocratisation ségrégative » : tout le monde monte d'un cran, mais les écarts entre milieux sociaux se déplacent vers les filières et les diplômes les plus prestigieux, sans se résorber." ] }
+      ],
         trans: "Si l'École ne suffit pas à égaliser, d'où viennent les inégalités de réussite ?" },
       { t: "II. Les facteurs des inégalités de réussite", sub: [
         { t: "A. Le poids de la famille", p: [
-          "Bourdieu met en avant le capital culturel : les savoirs, le langage, les références et le rapport à la culture transmis par la famille avantagent les enfants des milieux favorisés, dont la culture est proche de celle de l'École. À cela s'ajoutent les stratégies des ménages : choix de l'établissement, des options, de l'orientation, inégalement maîtrisés selon les familles." ] },
+          "Bourdieu met en avant le capital culturel : les savoirs, le langage, les références et le rapport à la culture transmis par la famille avantagent les enfants des milieux favorisés, dont la culture est proche de celle de l'École.",
+          "À cela s'ajoutent les stratégies des ménages : choix de l'établissement, des options, de l'orientation, inégalement maîtrisés selon les familles." ] },
         { t: "B. L'École et la socialisation", p: [
           "L'École n'est pas neutre : ses attentes implicites, le curriculum, les jugements des enseignants peuvent renforcer les inégalités. La socialisation différenciée selon le genre produit aussi des orientations sexuées (filières scientifiques, littéraires)." ] }
       ]}
@@ -213,9 +232,12 @@
           "Il faut distinguer la mobilité structurelle, due à l'évolution de la structure des emplois (la création de postes de cadres et le recul des emplois agricoles obligent mécaniquement à de la mobilité), de la fluidité sociale, qui mesure l'égalité des chances « pure », indépendante de cette évolution. Conséquence importante : une société peut être plus mobile sans être plus fluide." ] }
       ],
         trans: "Comment expliquer le niveau et les formes de cette mobilité ?" },
-      { t: "II. Expliquer la mobilité (et la reproduction)", p: [
-        "Trois grands facteurs interviennent. L'évolution de la structure socioprofessionnelle crée des places nouvelles (tertiarisation, hausse des emplois qualifiés). L'élévation des niveaux de formation joue un rôle ambivalent : le diplôme favorise la mobilité, mais sa possession reste socialement inégale.",
-        "Enfin, les ressources et configurations familiales (capital culturel, économique, social) expliquent une forte reproduction : malgré la mobilité, la position des parents continue de peser lourdement sur celle des enfants. Les trajectoires diffèrent aussi selon le sexe." ]}
+      { t: "II. Expliquer la mobilité (et la reproduction)", sub: [
+        { t: "A. Les facteurs de mobilité", p: [
+          "L'évolution de la structure socioprofessionnelle crée des places nouvelles (tertiarisation, hausse des emplois qualifiés). L'élévation des niveaux de formation joue un rôle ambivalent : le diplôme favorise la mobilité, mais sa possession reste socialement inégale." ] },
+        { t: "B. Le poids de la reproduction", p: [
+          "Les ressources et configurations familiales (capital culturel, économique, social) expliquent une forte reproduction : malgré la mobilité, la position des parents continue de peser lourdement sur celle des enfants. Les trajectoires diffèrent aussi selon le sexe." ] }
+      ]}
     ],
     conclusion: "La société française connaît une mobilité réelle, mais en grande partie « structurelle » (liée à la transformation des emplois) plutôt que « fluide » (liée à une véritable égalité des chances). La reproduction sociale demeure forte : l'origine continue largement de déterminer la destinée. Mesurer la mobilité suppose donc de ne jamais confondre le mouvement apparent (mobilité brute) et l'égalité des chances (fluidité).",
     retenir: [
@@ -234,12 +256,20 @@
           "Un emploi ne se résume pas à son existence : sa qualité se mesure à travers les conditions de travail, le niveau de salaire, la sécurité économique, l'horizon de carrière, le potentiel de formation et la variété des tâches." ] }
       ],
         trans: "Au cœur de ces mutations se trouve la transformation de l'organisation du travail." },
-      { t: "II. L'évolution de l'organisation du travail", p: [
-        "Le modèle taylorien (l'Organisation Scientifique du Travail) repose sur une double division : horizontale (parcellisation des tâches) et verticale (séparation de la conception et de l'exécution), avec une hiérarchie stricte. Le fordisme l'a prolongé avec le travail à la chaîne.",
-        "Le modèle post-taylorien cherche à dépasser ces limites par la flexibilité, la recomposition des tâches et le management participatif. Mais ses effets sont ambivalents : plus d'autonomie, mais aussi intensification et stress. Le numérique, enfin, brouille les frontières (télétravail, disponibilité permanente) et accroît la polarisation des emplois (croissance des emplois très et peu qualifiés, au détriment des intermédiaires)." ]},
-      { t: "III. Travail et intégration sociale", p: [
-        "Le travail est une source majeure d'intégration sociale : il procure un revenu, mais aussi un statut, une identité et des liens sociaux. C'est pourquoi le chômage et la précarité sont vécus comme une exclusion, au-delà de la seule perte de revenu.",
-        "Or les évolutions actuelles — précarisation, chômage durable, polarisation de la qualité des emplois — affaiblissent ce pouvoir intégrateur : le travail intègre moins sûrement qu'auparavant." ]}
+      { t: "II. L'évolution de l'organisation du travail", sub: [
+        { t: "A. Du taylorisme au post-taylorisme", p: [
+          "Le modèle taylorien (l'Organisation Scientifique du Travail) repose sur une double division : horizontale (parcellisation des tâches) et verticale (séparation de la conception et de l'exécution), avec une hiérarchie stricte. Le fordisme l'a prolongé avec le travail à la chaîne.",
+          "Le modèle post-taylorien cherche à dépasser ces limites par la flexibilité, la recomposition des tâches et le management participatif. Mais ses effets sont ambivalents : plus d'autonomie, mais aussi intensification et stress." ] },
+        { t: "B. L'impact du numérique", p: [
+          "Le numérique brouille les frontières (télétravail, disponibilité permanente, frontière travail / hors-travail) et accroît la polarisation des emplois : croissance des emplois très qualifiés et peu qualifiés, au détriment des emplois intermédiaires automatisables." ] }
+      ],
+        trans: "Au-delà des conditions de travail, ces mutations touchent au rôle social du travail lui-même." },
+      { t: "III. Travail et intégration sociale", sub: [
+        { t: "A. Un puissant facteur d'intégration", p: [
+          "Le travail est une source majeure d'intégration sociale : il procure un revenu, mais aussi un statut, une identité et des liens sociaux. C'est pourquoi le chômage et la précarité sont vécus comme une exclusion, au-delà de la seule perte de revenu." ] },
+        { t: "B. Un pouvoir intégrateur affaibli", p: [
+          "Or les évolutions actuelles — précarisation, chômage durable, polarisation de la qualité des emplois — affaiblissent ce pouvoir intégrateur : le travail intègre moins sûrement qu'auparavant." ] }
+      ]}
     ],
     conclusion: "Les mutations du travail et de l'emploi (flexibilité, numérique, nouvelles formes d'emploi) transforment en profondeur l'expérience du travail : elles offrent parfois plus d'autonomie, mais fragilisent aussi les conditions de travail et le pouvoir intégrateur du travail. L'enjeu social est de préserver ce dernier — faire en sorte que le travail continue d'inclure, et non d'exclure.",
     retenir: [
@@ -275,9 +305,11 @@
   set("rc-justice", {
     intro: "Les inégalités économiques et sociales (de revenu, de patrimoine, d'éducation, de santé…) sont multiformes et souvent cumulatives : elles se renforcent les unes les autres. Mais toute inégalité n'est pas nécessairement injuste. Le problème, à la croisée de l'économie et de la philosophie politique, est de déterminer quelles inégalités sont compatibles avec la justice, selon les différentes conceptions de celle-ci, et comment les pouvoirs publics peuvent agir.",
     parties: [
-      { t: "I. Mesurer les inégalités", p: [
-        "On dispose d'outils statiques : le rapport inter-quantiles (par exemple D9/D1, qui compare les revenus des 10 % les plus riches et des 10 % les plus pauvres), la courbe de Lorenz et le coefficient de Gini (compris entre 0 = égalité parfaite et 1 = inégalité maximale), ou la part du revenu détenue par le « top 1 % ».",
-        "Et un outil dynamique : la corrélation de revenu entre parents et enfants, qui mesure la transmission — donc la reproduction — des inégalités d'une génération à l'autre." ],
+      { t: "I. Mesurer les inégalités", sub: [
+        { t: "A. Les outils de mesure", p: [
+          "On dispose d'outils statiques : le rapport inter-quantiles (par exemple D9/D1, qui compare les revenus des 10 % les plus riches et des 10 % les plus pauvres), la courbe de Lorenz et le coefficient de Gini (compris entre 0 = égalité parfaite et 1 = inégalité maximale), ou la part du revenu détenue par le « top 1 % ».",
+          "Et un outil dynamique : la corrélation de revenu entre parents et enfants, qui mesure la transmission — donc la reproduction — des inégalités d'une génération à l'autre." ] }
+      ],
         trans: "Mais à partir de quand une inégalité devient-elle injuste ? Tout dépend de la conception de la justice retenue." },
       { t: "II. Les conceptions de la justice sociale", sub: [
         { t: "A. Les trois formes d'égalité", p: [
@@ -286,9 +318,12 @@
           "L'utilitarisme vise à maximiser le bien-être total, quitte à tolérer des inégalités. Le libertarisme (Nozick) donne la priorité absolue à la liberté et au respect de la propriété. L'égalitarisme libéral de Rawls n'admet les inégalités que si elles profitent aussi aux plus défavorisés (principe de différence). L'égalitarisme strict vise l'égalité des situations." ] }
       ],
         trans: "Ces conceptions orientent l'action concrète des pouvoirs publics." },
-      { t: "III. L'action des pouvoirs publics", p: [
-        "Pour réduire les inégalités jugées injustes, l'État dispose de la fiscalité (impôts progressifs, redistribution), de la protection sociale, des services collectifs (école, santé) et des mesures de lutte contre les discriminations.",
-        "Mais cette action s'exerce sous contrainte de financement et fait l'objet de débats : sur son efficacité (réduit-elle vraiment les inégalités ?), sa légitimité (le consentement à l'impôt) et ses risques d'effets pervers (désincitations au travail ou à l'effort)." ]}
+      { t: "III. L'action des pouvoirs publics", sub: [
+        { t: "A. Les instruments de la justice sociale", p: [
+          "Pour réduire les inégalités jugées injustes, l'État dispose de la fiscalité (impôts progressifs, redistribution), de la protection sociale, des services collectifs (école, santé) et des mesures de lutte contre les discriminations." ] },
+        { t: "B. Sous contrainte et en débat", p: [
+          "Mais cette action s'exerce sous contrainte de financement et fait l'objet de débats : sur son efficacité (réduit-elle vraiment les inégalités ?), sa légitimité (le consentement à l'impôt) et ses risques d'effets pervers (désincitations au travail ou à l'effort)." ] }
+      ]}
     ],
     conclusion: "Les inégalités ne sont pas justes ou injustes en elles-mêmes : leur évaluation dépend de la conception de la justice que l'on adopte (de l'utilitarisme à l'égalitarisme strict). L'action publique cherche un équilibre toujours discuté entre la réduction des inégalités, le respect des libertés et l'efficacité économique — preuve que la justice sociale est autant un choix politique qu'une question technique.",
     retenir: [
@@ -300,21 +335,26 @@
   set("rc-environnement", {
     intro: "L'environnement, et en particulier le changement climatique, s'est imposé comme un problème public majeur. Mais un problème environnemental n'a rien d'« évident » : il doit être construit comme tel par des acteurs, puis inscrit à l'agenda politique. Le problème est de comprendre comment se construit ce problème public, et de quels instruments dispose l'action publique, à quelles échelles, pour y répondre efficacement.",
     parties: [
-      { t: "I. La construction du problème public environnemental", p: [
-        "Une question ne devient un « problème public » que lorsque des acteurs la construisent comme telle et obtiennent sa mise à l'agenda politique. De nombreux acteurs y participent : les pouvoirs publics, les ONG, les entreprises, les experts (le GIEC pour le climat), les partis et les mouvements citoyens.",
-        "Ces acteurs entretiennent des relations à la fois de coopération et de conflit (lobbying des uns, mobilisations des autres) : la définition même du problème et des solutions est un enjeu de luttes." ],
+      { t: "I. La construction du problème public environnemental", sub: [
+        { t: "A. Des acteurs en coopération et en conflit", p: [
+          "Une question ne devient un « problème public » que lorsque des acteurs la construisent comme telle et obtiennent sa mise à l'agenda politique. De nombreux acteurs y participent : les pouvoirs publics, les ONG, les entreprises, les experts (le GIEC pour le climat), les partis et les mouvements citoyens.",
+          "Ces acteurs entretiennent des relations à la fois de coopération et de conflit (lobbying des uns, mobilisations des autres) : la définition même du problème et des solutions est un enjeu de luttes." ] }
+      ],
         trans: "Une fois le problème posé, comment les pouvoirs publics peuvent-ils agir ?" },
       { t: "II. Les instruments de l'action publique", sub: [
-        { t: "A. Le cadre : des externalités et des échelles", p: [
+        { t: "A. Le cadre : externalités et échelles", p: [
           "La pollution est l'exemple type d'une externalité négative : un coût imposé à des tiers (la collectivité, les générations futures) sans compensation par le marché. Corriger cette défaillance justifie l'intervention publique, qui s'articule à plusieurs échelles imbriquées : locale, nationale, européenne et mondiale." ] },
         { t: "B. Les quatre grands instruments (ex. climat)", p: [
           "Face au changement climatique, les pouvoirs publics disposent de quatre instruments : la réglementation (normes, interdictions), le marché de quotas d'émission (plafonner puis échanger des « droits à polluer »), la taxation (la taxe carbone, qui applique le principe pollueur-payeur, dans la logique de l'économiste Pigou) et la subvention à l'innovation verte.",
           "Chacun a ses avantages et ses limites (efficacité, coût, acceptabilité sociale) et peut se heurter à des dysfonctionnements de l'action publique." ] }
       ],
         trans: "Mais au-delà de chaque pays, le climat pose un défi de coopération internationale redoutable." },
-      { t: "III. Le défi de la coopération internationale", p: [
-        "Le climat est un bien commun mondial : non exclusif (nul ne peut en être privé) mais rival (sa dégradation nuit à tous). Sa préservation se heurte donc à deux obstacles. D'abord, les stratégies de passager clandestin : chaque pays est tenté de profiter des efforts des autres sans réduire lui-même ses émissions.",
-        "Ensuite, les inégalités de développement : les pays émergents refusent de freiner leur croissance pour un problème largement causé par les pays développés. D'où la difficulté des accords internationaux (COP), qui doivent concilier efficacité écologique et équité entre nations." ]}
+      { t: "III. Le défi de la coopération internationale", sub: [
+        { t: "A. Le climat, un bien commun mondial", p: [
+          "Le climat est un bien commun mondial : non exclusif (nul ne peut en être privé) mais rival (sa dégradation nuit à tous). Sa préservation se heurte donc aux stratégies de passager clandestin : chaque pays est tenté de profiter des efforts des autres sans réduire lui-même ses émissions." ] },
+        { t: "B. L'obstacle des inégalités de développement", p: [
+          "S'y ajoutent les inégalités de développement : les pays émergents refusent de freiner leur croissance pour un problème largement causé par les pays développés. D'où la difficulté des accords internationaux (les COP), qui doivent concilier efficacité écologique et équité entre nations." ] }
+      ]}
     ],
     conclusion: "L'action publique pour l'environnement suppose d'abord que le problème soit construit et mis à l'agenda par une diversité d'acteurs, puis qu'elle mobilise des instruments complémentaires (réglementation, quotas, taxe, subvention) à des échelles articulées. Mais le caractère de bien commun mondial du climat en fait un défi politique majeur, où l'efficacité dépend d'une coopération internationale toujours fragile.",
     retenir: [
