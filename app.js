@@ -425,6 +425,14 @@
   let examTimer = null;
   function stopTimer(){ if (examTimer){ clearInterval(examTimer); examTimer = null; } }
 
+  // Mélange l'ordre des options d'un QCM (sinon la bonne réponse tombe toujours en A/B).
+  function shuffleQcmItem(it){
+    if (!it || it.kind !== "qcm" || !it.d || !it.d.o) return it;
+    const pairs = it.d.o.map((text, idx) => ({ text, ok: idx === it.d.c }));
+    const sh = shuffle(pairs);
+    return Object.assign({}, it, { d: Object.assign({}, it.d, { o: sh.map(p => p.text), c: sh.findIndex(p => p.ok) }) });
+  }
+
   function buildSession(mode, scope){
     const chs = chaptersInScope(scope);
     const s = { mode, scope, i:0, correct:0, wrong:0, answered:false, picked:null, flipped:false, items:[], answers:[], startMs:Date.now(), combo:0, coinMult:1, rewarded:false };
@@ -455,6 +463,7 @@
     } else if (mode==="match"){
       buildMatchRound(s, chs);
     }
+    s.items = (s.items || []).map(shuffleQcmItem);
     if (state.boostActive){ s.coinMult = 2; state.boostActive = false; save(); }
     return s;
   }
