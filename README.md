@@ -3,7 +3,11 @@
 Site de révision **ludique** du programme officiel de Sciences économiques et sociales
 (enseignement de spécialité, Terminale générale) pour le **baccalauréat 2026**.
 
-## Ouvrir le site
+## En ligne (à partager)
+
+**https://mirakflb.github.io/ses-revision/** — pas de login, ouvre et joue. La progression est stockée localement dans le navigateur de chacun (`localStorage`), Mac comme Windows. Installable comme une appli.
+
+## Ouvrir en local
 
 Double-clique sur **`index.html`** — aucune installation, fonctionne hors ligne.
 (Ou sers le dossier : `python -m http.server` puis ouvre http://localhost:8000.)

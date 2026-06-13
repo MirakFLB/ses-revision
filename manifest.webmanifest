@@ -1,0 +1,15 @@
+{
+  "name": "SES Bac 2026 — Révision",
+  "short_name": "SES Bac",
+  "description": "Révision de SES (Bac 2026) : 12 chapitres, objectifs, méthode, jeux. Progression sauvegardée sur ton appareil.",
+  "start_url": ".",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a0d12",
+  "theme_color": "#1a1206",
+  "lang": "fr",
+  "icons": [
+    { "src": "favicon.png", "sizes": "256x256", "type": "image/png", "purpose": "any" },
+    { "src": "favicon.png", "sizes": "256x256", "type": "image/png", "purpose": "maskable" }
+  ]
+}
