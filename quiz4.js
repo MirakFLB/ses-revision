@@ -12,8 +12,8 @@
 
   add("eco-croissance", {
     qcm: [
-      { q: "La croissance endogène explique le progrès technique par :", o: ["le hasard", "les choix d'investissement internes (R&D, capital humain)", "la météo", "la seule démographie"], c: 1, e: "Romer, Aghion : le progrès technique est produit par l'économie elle-même." },
-      { q: "La PGF est souvent surnommée :", o: ["le « résidu » (de Solow)", "le PIB", "le déficit", "la dette publique"], c: 0, e: "Part de la croissance inexpliquée par l'accumulation des facteurs." }
+      { q: "La croissance endogène explique le progrès technique par :", o: ["un choc exogène imprévisible totalement extérieur aux décisions économiques", "les choix d'investissement internes (R&D, capital humain)", "la seule accumulation du capital physique sans rendements croissants", "la croissance démographique et l'augmentation de la population active"], c: 1, e: "Romer, Aghion : le progrès technique est produit par l'économie elle-même." },
+      { q: "La PGF est souvent surnommée :", o: ["le « résidu » (de Solow)", "l'« apport » (du travail)", "le « stock » (de capital)", "la « rente » (de monopole)"], c: 0, e: "Part de la croissance inexpliquée par l'accumulation des facteurs." }
     ],
     vf: [
       { s: "Les droits de propriété renforcent l'incitation à innover.", a: true, e: "Ils garantissent à l'innovateur l'appropriation des fruits de son innovation." },
@@ -24,8 +24,8 @@
 
   add("eco-commerce", {
     qcm: [
-      { q: "La compétitivité hors-prix repose sur :", o: ["les bas salaires", "la qualité et l'innovation", "le seul taux de change", "les quotas"], c: 1, e: "Hors-prix = qualité, innovation, service ; prix = coûts." },
-      { q: "La DIPP désigne :", o: ["la fermeture des frontières", "la décomposition internationale du processus productif", "une taxe douanière", "un syndicat"], c: 1, e: "Les FMN fragmentent la chaîne de valeur entre pays." }
+      { q: "La compétitivité hors-prix repose sur :", o: ["les bas salaires et les coûts", "la qualité et l'innovation", "le seul taux de change", "les quotas et les droits"], c: 1, e: "Hors-prix = qualité, innovation, service ; prix = coûts." },
+      { q: "La DIPP désigne :", o: ["la protection internationale des productions nationales", "la décomposition internationale du processus productif", "la délocalisation intégrale des produits importés", "la dérégulation internationale des prix protégés"], c: 1, e: "Les FMN fragmentent la chaîne de valeur entre pays." }
     ],
     vf: [
       { s: "Le commerce intra-branche échange des produits similaires entre pays comparables.", a: true, e: "Fondé sur la différenciation et la qualité." },
@@ -36,8 +36,8 @@
 
   add("eco-chomage", {
     qcm: [
-      { q: "Le chômage structurel est lié :", o: ["à la conjoncture", "au fonctionnement du marché du travail (appariement, institutions)", "aux saisons", "aux exportations"], c: 1, e: "Indépendant de la conjoncture." },
-      { q: "Le salaire d'efficience peut créer du chômage car :", o: ["il fait baisser les prix", "il est fixé au-dessus de l'équilibre", "il supprime les impôts", "il augmente la demande"], c: 1, e: "Salaire supérieur à l'équilibre → source de chômage structurel." }
+      { q: "Le chômage structurel est lié :", o: ["au ralentissement de l'activité et à l'insuffisance de la demande", "au fonctionnement du marché du travail (appariement, institutions)", "aux variations saisonnières régulières de certains secteurs d'activité", "au recul ponctuel des exportations et de la demande étrangère"], c: 1, e: "Indépendant de la conjoncture." },
+      { q: "Le salaire d'efficience peut créer du chômage car :", o: ["il fait baisser les prix", "il est fixé au-dessus de l'équilibre", "il abaisse les cotisations", "il relance la consommation"], c: 1, e: "Salaire supérieur à l'équilibre → source de chômage structurel." }
     ],
     vf: [
       { s: "Taux de chômage = chômeurs / population active.", a: true, e: "Population active = actifs occupés + chômeurs." },
@@ -48,7 +48,7 @@
 
   add("eco-crises", {
     qcm: [
-      { q: "Une bulle spéculative est :", o: ["une baisse des prix", "un écart auto-entretenu entre prix et valeur fondamentale", "un impôt", "un dividende"], c: 1, e: "Suivi d'un éclatement (comportements mimétiques)." }
+      { q: "Une bulle spéculative est :", o: ["un alignement durable du prix sur la valeur fondamentale réelle", "un écart auto-entretenu entre prix et valeur fondamentale", "un prélèvement public sur les plus-values des actifs financiers", "une rémunération versée régulièrement aux détenteurs d'actions"], c: 1, e: "Suivi d'un éclatement (comportements mimétiques)." }
     ],
     vf: [
       { s: "L'aléa moral = prise de risque excessive quand on ne supporte pas toutes les conséquences.", a: true, e: "Ex. sauvetage anticipé des banques." }
@@ -58,7 +58,7 @@
 
   add("eco-europe", {
     qcm: [
-      { q: "Dans la zone euro, la politique monétaire est :", o: ["nationale", "unique, menée par la BCE", "interdite", "décidée par chaque banque commerciale"], c: 1, e: "Unique et indépendante." }
+      { q: "Dans la zone euro, la politique monétaire est :", o: ["propre à chaque État membre", "unique, menée par la BCE", "suspendue depuis les traités", "fixée par les marchés financiers"], c: 1, e: "Unique et indépendante." }
     ],
     vf: [
       { s: "La politique budgétaire est nationale mais contrainte par les traités européens.", a: true, e: "D'où des difficultés de coordination." }
@@ -68,7 +68,7 @@
 
   add("socio-structure", {
     qcm: [
-      { q: "Pour Weber, la stratification est :", o: ["unidimensionnelle (l'économie)", "multidimensionnelle (classes, statut, parti)", "inexistante", "fondée sur l'âge"], c: 1, e: "Ordre économique, social et politique." }
+      { q: "Pour Weber, la stratification est :", o: ["unidimensionnelle (l'économie)", "réductible au seul rapport de production", "déterminée par l'âge et la génération", "fondée uniquement sur le prestige hérité"], c: 1, e: "Ordre économique, social et politique." }
     ],
     vf: [
       { s: "Pour Marx, la classe « pour soi » suppose une conscience de classe.", a: true, e: "Par opposition à la classe « en soi »." }
@@ -78,7 +78,7 @@
 
   add("socio-ecole", {
     qcm: [
-      { q: "La démocratisation scolaire (≠ massification) désigne :", o: ["davantage d'élèves", "la réduction des inégalités d'accès selon l'origine sociale", "moins d'écoles", "plus de sélection"], c: 1, e: "À distinguer de la simple hausse des effectifs." }
+      { q: "La démocratisation scolaire (≠ massification) désigne :", o: ["la hausse générale du nombre d'élèves scolarisés dans le secondaire", "la réduction des inégalités d'accès selon l'origine sociale", "le renforcement de la sélection à l'entrée des filières d'élite", "l'allongement de la durée moyenne des études pour chaque génération"], c: 1, e: "À distinguer de la simple hausse des effectifs." }
     ],
     vf: [
       { s: "Le capital culturel (Bourdieu) favorise la réussite scolaire.", a: true, e: "Ressources culturelles transmises par la famille." }
@@ -88,7 +88,7 @@
 
   add("socio-mobilite", {
     qcm: [
-      { q: "La fluidité sociale mesure :", o: ["la mobilité brute observée", "la mobilité indépendante des changements de structure", "la croissance", "le chômage"], c: 1, e: "Mobilité « pure » = égalité des chances relative." }
+      { q: "La fluidité sociale mesure :", o: ["la mobilité brute observée dans la table de destinée", "la mobilité indépendante des changements de structure", "la mobilité due à l'évolution de la structure des emplois", "la part des enfants reproduisant la position de leurs parents"], c: 1, e: "Mobilité « pure » = égalité des chances relative." }
     ],
     vf: [
       { s: "Une société plus mobile est nécessairement plus fluide.", a: false, e: "La mobilité structurelle peut gonfler la mobilité observée." }
@@ -98,7 +98,7 @@
 
   add("socio-travail", {
     qcm: [
-      { q: "Le taylorisme (OST) repose sur :", o: ["la polyvalence", "la division horizontale ET verticale du travail", "le télétravail", "l'autonomie ouvrière"], c: 1, e: "Parcellisation, hiérarchie stricte." }
+      { q: "Le taylorisme (OST) repose sur :", o: ["la polyvalence et la rotation des tâches entre opérateurs", "la division horizontale ET verticale du travail", "l'autonomie des équipes dans l'organisation de leur production", "l'enrichissement des tâches et la responsabilisation des ouvriers"], c: 1, e: "Parcellisation, hiérarchie stricte." }
     ],
     vf: [
       { s: "La polarisation oppose emplois très et peu qualifiés au détriment des intermédiaires.", a: true, e: "Effet du numérique notamment." }
@@ -108,7 +108,7 @@
 
   add("socio-engagement", {
     qcm: [
-      { q: "Le paradoxe d'Olson : l'individu rationnel a intérêt à :", o: ["s'engager toujours", "ne pas s'engager et profiter de l'action des autres", "payer une cotisation", "voter blanc"], c: 1, e: "Le « passager clandestin »." }
+      { q: "Le paradoxe d'Olson : l'individu rationnel a intérêt à :", o: ["s'engager systématiquement par devoir civique envers le groupe", "ne pas s'engager et profiter de l'action des autres", "financer l'action collective à hauteur de ses moyens disponibles", "militer activement pour obtenir le bien collectif recherché"], c: 1, e: "Le « passager clandestin »." }
     ],
     vf: [
       { s: "Les incitations sélectives réservent des avantages aux seuls participants.", a: true, e: "Pour résoudre le paradoxe d'Olson." }
@@ -118,7 +118,7 @@
 
   add("rc-justice", {
     qcm: [
-      { q: "Le coefficient de Gini vaut 0 quand :", o: ["l'inégalité est maximale", "l'égalité est parfaite", "il n'y a pas de revenu", "tout le monde est pauvre"], c: 1, e: "0 = égalité parfaite, proche de 1 = forte inégalité." }
+      { q: "Le coefficient de Gini vaut 0 quand :", o: ["l'inégalité est maximale", "l'égalité est parfaite", "le revenu médian est nul", "la pauvreté est généralisée"], c: 1, e: "0 = égalité parfaite, proche de 1 = forte inégalité." }
     ],
     vf: [
       { s: "Égalité des chances et égalité des situations sont synonymes.", a: false, e: "Trois formes distinctes : droits, chances, situations." }
@@ -128,7 +128,7 @@
 
   add("rc-environnement", {
     qcm: [
-      { q: "Une externalité négative est :", o: ["un gain partagé", "un coût imposé à un tiers sans compensation par le marché", "une subvention", "un impôt"], c: 1, e: "Ex. pollution, émissions de CO₂." }
+      { q: "Une externalité négative est :", o: ["un bénéfice procuré à un tiers sans compensation par le marché", "un coût imposé à un tiers sans compensation par le marché", "une aide publique versée pour encourager une activité polluante", "un prélèvement destiné à corriger les effets de la pollution"], c: 1, e: "Ex. pollution, émissions de CO₂." }
     ],
     vf: [
       { s: "Le passager clandestin freine les accords internationaux sur le climat.", a: true, e: "Profiter du bien commun sans contribuer." }
