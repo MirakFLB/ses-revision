@@ -561,6 +561,23 @@
       <div class="match-grid"><div class="m-col">${left}</div><div class="m-col">${right}</div></div></div></div>`;
   }
 
+  // ---- corrigé de fin de partie ----
+  function reviewLabel(it){ return (it.c && (it.c.titre || it.c.title)) || ""; }
+  function recordReview(it, ok){
+    if (!g) return; const d = it.d, kind = it.kind; let q="", your="", corr="";
+    if (kind==="qcm"){ q=d.q; your=(g.picked!=null && d.o[g.picked]!=null)?d.o[g.picked]:"—"; corr=d.o[d.c]; }
+    else if (kind==="vf"){ q=d.s; your=(g.picked===true?"Vrai":g.picked===false?"Faux":"—"); corr=d.a?"Vrai":"Faux"; }
+    else if (kind==="trous"){ q=d.t.replace("_____","……"); your=g._trouVal||(ok?d.a:"—"); corr=d.a; }
+    else return;
+    g.answers.push({ chap:reviewLabel(it), kind:kind, q:q, your:your, corr:corr, ok:ok, e:d.e||"" });
+  }
+  function cqHTML(a){
+    let ans;
+    if (a.ok) ans = `<span class="cq-good">Bonne réponse : ${esc(a.corr)}</span>`;
+    else ans = `<span class="cq-bad">Ta réponse : ${esc(a.your||"—")}</span><span class="cq-good">Bonne réponse : ${esc(a.corr)}</span>`;
+    return `<div class="cq ${a.ok?"":"no"}"><div class="cq-q"><span class="mk">${a.ok?"✓":"✗"}</span><span>${esc(a.q)}</span></div><div class="cq-ans">${ans}</div>${a.e?`<div class="cq-exp">${esc(a.e)}</div>`:""}${a.chap?`<div class="cq-chap">📘 ${esc(a.chap)}</div>`:""}</div>`;
+  }
+
   function renderResult(){
     stopTimer();
     if (!g.rewarded){
@@ -579,7 +596,7 @@
     } else {
       extra = `<p>${g.correct} bonne${g.correct>1?"s":""} réponse${g.correct>1?"s":""} sur ${total}${g._perfect?` · <span style="color:var(--ok)">sans-faute ! +20 ${COIN}</span>`:""}</p>`;
     }
-    const review = g.exam ? `<div class="exam-review">${g.answers.map((a,i)=>`<div class="er ${a.ok?"ok":"no"}"><span class="er-i">${i+1}</span><span class="er-q">${esc(a.q)}</span><span class="er-v">${a.ok?"✓":"✗"}</span></div>`).join("")}</div>` : "";
+    const review = (g.answers && g.answers.length) ? `<div class="corrige"><h3 class="sub3" style="text-align:left;margin:0 0 4px">Corrigé détaillé — pourquoi chaque réponse</h3>${g.answers.map(cqHTML).join("")}</div>` : "";
     return `<div class="view fade" data-accent="gold"><div class="card result-card" data-accent="gold">
       <div style="display:grid;place-items:center">${ring(pct,132)}</div><h2>${titleTxt}</h2>${extra}
       <div class="result-actions"><button class="btn" data-act="restart-game"><svg viewBox="0 0 24 24" width="17" height="17"><path d="M4 12a8 8 0 1 1 2.3 5.6M4 12V7m0 5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Rejouer</button><a class="btn ghost" href="#/jouer" data-act="quit-game">Autre jeu</a></div></div>
@@ -588,7 +605,7 @@
 
   /* ---- answer handlers ---- */
   function finishQuestionFeedback(correct){ g.answered=true; if(correct) g.correct++; else g.wrong++; recordAnswer(correct); view.innerHTML = renderGame(); renderSidebar(); }
-  function examRecord(it, correct, label){ g.answers.push({q:label, ok:correct}); if(correct) g.correct++; else g.wrong++; recordAnswer(correct); advance(); }
+  function examRecord(it, correct, label){ recordReview(it, correct); if(correct) g.correct++; else g.wrong++; recordAnswer(correct); advance(); }
   function advance(){ g.i++; g.answered=false; g.picked=null; g.flipped=false; view.innerHTML = renderGame(); if (g.i>=g.items.length){ g.endMs=Date.now(); window.scrollTo(0,0); } renderSidebar(); if (g.exam && g.i<g.items.length) startExamTimer(); }
 
   function startExamTimer(){ stopTimer(); examTimer = setInterval(()=>{ const el=document.getElementById("exam-timer"); if(!el){ stopTimer(); return; } const s=Math.round((Date.now()-g.startMs)/1000); el.textContent="⏱️ "+Math.floor(s/60)+":"+String(s%60).padStart(2,"0"); }, 1000); }
@@ -599,7 +616,7 @@
     const it = g.items[g.i]; const correct = idx===it.d.c;
     if (g.exam){ g.picked=idx; examRecord(it, correct, it.d.q); return; }
     if (g.answered) return;
-    g.picked=idx;
+    g.picked=idx; recordReview(it, correct);
     if (g.survie){ g.answered=true; if(correct) g.correct++; else { g.wrong++; g.dead=true; } recordAnswer(correct); view.innerHTML=renderGame(); renderSidebar(); return; }
     if (g.sprint){ g.answered=true; if(correct) g.correct++; else g.wrong++; recordAnswer(correct); view.innerHTML=renderGame(); renderSidebar(); if (Date.now() < g.deadline) setTimeout(()=>{ if(g&&g.sprint&&g.answered&&Date.now()<g.deadline) advance(); }, 650); return; }
     finishQuestionFeedback(correct);
@@ -607,12 +624,12 @@
   function answerVF(val){
     const it = g.items[g.i]; const correct = val===it.d.a;
     if (g.exam){ g.picked=val; examRecord(it, correct, it.d.s); }
-    else { if(g.answered) return; g.picked=val; finishQuestionFeedback(correct); }
+    else { if(g.answered) return; g.picked=val; recordReview(it, correct); finishQuestionFeedback(correct); }
   }
   function submitTrou(){
     if (g.answered) return; const it=g.items[g.i]; const inp=document.getElementById("trou-input"); const val=inp?inp.value:"";
     if (!val.trim()) return; const cands=[it.d.a].concat(it.d.alt||[]); const correct=cands.some(c=>norm(c)===norm(val));
-    g.picked=correct; finishQuestionFeedback(correct);
+    g.picked=correct; g._trouVal=val; recordReview(it, correct); finishQuestionFeedback(correct);
   }
   function flashRate(know){
     const it=g.items[g.i]; const cur=state.leitner[it.nid]||1;
