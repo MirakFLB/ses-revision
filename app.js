@@ -299,13 +299,15 @@
   /* ---- rendu d'un cours structuré (I / A / points + à retenir) ---- */
   function lessonHTML(lecon){
     if (!lecon || !lecon.parties) return "";
+    const paras = arr => (arr||[]).map(x=>`<p class="lec-p">${esc(x)}</p>`).join("");
     const parts = lecon.parties.map(P=>{
-      const direct = (P.p||[]).length ? `<ul class="lec-points">${P.p.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>` : "";
-      const subs = (P.sub||[]).map(S=>`<div class="lec-sub"><h5 class="lec-h2">${esc(S.t)}</h5><ul class="lec-points">${(S.p||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
-      return `<section class="lec-part"><h4 class="lec-h1">${esc(P.t)}</h4>${direct}${subs}</section>`;
+      const subs = (P.sub||[]).map(S=>`<div class="lec-sub"><h5 class="lec-h2">${esc(S.t)}</h5>${paras(S.p)}</div>`).join("");
+      const trans = P.trans ? `<p class="lec-trans">${esc(P.trans)}</p>` : "";
+      return `<section class="lec-part"><h4 class="lec-h1">${esc(P.t)}</h4>${paras(P.p)}${subs}${trans}</section>`;
     }).join("");
+    const concl = lecon.conclusion ? `<section class="lec-part"><h4 class="lec-h1">Conclusion</h4>${paras([].concat(lecon.conclusion))}</section>` : "";
     const ret = (lecon.retenir||[]).map(x=>`<li>${esc(x)}</li>`).join("");
-    return `<div class="lecon">${parts}${ret?`<div class="lec-retenir"><div class="lec-retenir-h">📌 À retenir</div><ul>${ret}</ul></div>`:""}</div>`;
+    return `<div class="lecon">${parts}${concl}${ret?`<div class="lec-retenir"><div class="lec-retenir-h">📌 À retenir</div><ul>${ret}</ul></div>`:""}</div>`;
   }
 
   /* ---- chapter detail with tabs ---- */
