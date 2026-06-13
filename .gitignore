@@ -1,0 +1,5 @@
+# Outils de dev locaux — pas nécessaires en ligne
+.claude/
+*.lnk
+Thumbs.db
+.DS_Store
