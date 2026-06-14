@@ -298,18 +298,53 @@
       ${blocks}</div>`;
   }
 
-  /* ---- surligneur : découpe un paragraphe en phrases surlignables ---- */
-  function hlText(text, ctx){
-    if (!ctx) return esc(text);
-    const segs = String(text).split(/(?<=[.!?…»])\s+/);
-    return segs.map(function(seg){ if(!seg) return ""; const i = ctx.i++; const on = ctx.hl.has(i) ? " hl-on" : ""; return '<span class="hl-s'+on+'" data-hl="'+i+'">'+esc(seg)+'</span>'; }).join(" ");
+  /* ---- surligneur : sélection libre de texte, persistée par décalages ---- */
+  function curChapId(){ const seg=(location.hash||"").replace(/^#/,"").split("/").filter(Boolean); return seg[0]==="chapitre"?seg[1]:null; }
+  function applyHL(text, ranges){
+    text = String(text);
+    if (!ranges || !ranges.length) return esc(text);
+    var rs = ranges.map(function(r){ return {s:Math.max(0, r.s|0), e:Math.min(text.length, r.e|0)}; }).filter(function(r){ return r.e>r.s; }).sort(function(a,b){ return a.s-b.s; });
+    var merged=[]; rs.forEach(function(r){ var l=merged[merged.length-1]; if(l && r.s<=l.e){ l.e=Math.max(l.e, r.e); } else merged.push({s:r.s, e:r.e}); });
+    var out="", pos=0;
+    merged.forEach(function(r){ if(r.s>pos) out+=esc(text.slice(pos, r.s)); out+='<mark class="hl-on" data-rs="'+r.s+'" data-re="'+r.e+'">'+esc(text.slice(r.s, r.e))+'</mark>'; pos=r.e; });
+    if(pos<text.length) out+=esc(text.slice(pos));
+    return out;
   }
-  function toggleHL(id, idx, el){ var arr = state.hl[id] || (state.hl[id]=[]); var pos = arr.indexOf(idx); if(pos>=0){ arr.splice(pos,1); el.classList.remove("hl-on"); } else { arr.push(idx); el.classList.add("hl-on"); } save(); }
+  function paraEl(text, ctx, cls, style){
+    var st = style?' style="'+style+'"':'';
+    if(!ctx) return '<p class="'+cls+'"'+st+'>'+esc(text)+'</p>';
+    var p = ctx.p++; var ranges = ctx.byP[p]||[];
+    return '<p class="'+cls+'"'+st+' data-p="'+p+'">'+applyHL(String(text), ranges)+'</p>';
+  }
+  function hlCtx(id){ var list=(state.hl[id]||[]).filter(function(x){return x && typeof x==="object";}); var byP={}; list.forEach(function(h){ (byP[h.p]=byP[h.p]||[]).push({s:h.s,e:h.e}); }); return { p:0, byP:byP }; }
+  var _hlGuard = 0;
+  function onStabiloSelect(){
+    if(!state.stabilo) return;
+    var sel = window.getSelection(); if(!sel || sel.isCollapsed || !sel.rangeCount) return;
+    var range = sel.getRangeAt(0);
+    var node = range.startContainer; var host = (node.nodeType===1?node:node.parentElement);
+    var para = host && host.closest ? host.closest('[data-p]') : null;
+    if(!para || !para.closest('.lecon-wrap.stabilo')) return;
+    var pre = document.createRange(); pre.selectNodeContents(para);
+    try { pre.setEnd(range.startContainer, range.startOffset); } catch(e){ return; }
+    var start = pre.toString().length;
+    var end = Math.min(para.textContent.length, start + range.toString().length);
+    if(end<=start) return;
+    var id = curChapId(); if(!id) return;
+    (state.hl[id]=state.hl[id]||[]).push({ p:+para.getAttribute('data-p'), s:start, e:end });
+    save(); sel.removeAllRanges(); _hlGuard = Date.now();
+    view.innerHTML = renderChapter(id);
+  }
+  function removeHLAt(id, p, rs, re){
+    var arr = state.hl[id]; if(!arr) return;
+    state.hl[id] = arr.filter(function(x){ if(!x||typeof x!=="object") return false; if(x.p!==p) return true; return !(x.s < re && x.e > rs); });
+    save(); view.innerHTML = renderChapter(id);
+  }
 
   /* ---- rendu d'un cours structuré (I / A / points + à retenir) ---- */
   function lessonHTML(lecon, ctx){
     if (!lecon || !lecon.parties) return "";
-    const paras = arr => (arr||[]).map(x=>`<p class="lec-p">${hlText(x, ctx)}</p>`).join("");
+    const paras = arr => (arr||[]).map(x=>paraEl(x, ctx, "lec-p")).join("");
     const parts = lecon.parties.map(P=>{
       const subs = (P.sub||[]).map(S=>`<div class="lec-sub"><h5 class="lec-h2">${esc(S.t)}</h5>${paras(S.p)}</div>`).join("");
       const trans = P.trans ? `<p class="lec-trans">${esc(P.trans)}</p>` : "";
@@ -338,11 +373,11 @@
         ${chiffres?`<h3 class="sub3" style="margin-top:24px">Chiffres-clés</h3><div class="figs">${chiffres}</div>`:""}
         ${ct.lecon?`<div class="toolbar" style="margin-top:24px"><button class="btn" data-act="tab" data-tab="lecon"><svg viewBox="0 0 24 24" width="17" height="17"><path d="M6 3h9l5 5v13H6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.7"/></svg> Lire le cours complet</button></div>`:""}</div>`;
     } else if (chapTab === "lecon"){
-      const ctx = { i:0, hl: new Set(state.hl[c.id]||[]) };
-      const introHTML = (ct.lecon&&ct.lecon.intro)?`<p class="coeur-text" style="margin-bottom:24px">${hlText(ct.lecon.intro, ctx)}</p>`:"";
+      const ctx = hlCtx(c.id);
+      const introHTML = (ct.lecon&&ct.lecon.intro)?paraEl(ct.lecon.intro, ctx, "coeur-text", "margin-bottom:24px"):"";
       const lecon = lessonHTML(ct.lecon, ctx);
-      const nbHl = (state.hl[c.id]||[]).length;
-      const bar = `<div class="stabilo-bar"><button class="btn ${state.stabilo?"":"ghost"}" data-act="stabilo"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M15 4l5 5-9 9-5 1 1-5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg> Surligneur${state.stabilo?" actif":""}</button>${nbHl?`<button class="link-btn" data-act="hl-clear">Effacer (${nbHl})</button>`:""}${state.stabilo?`<span class="muted stabilo-hint">Touche une phrase pour la surligner</span>`:""}</div>`;
+      const nbHl = (state.hl[c.id]||[]).filter(x=>x&&typeof x==="object").length;
+      const bar = `<div class="stabilo-bar"><button class="btn ${state.stabilo?"":"ghost"}" data-act="stabilo"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M15 4l5 5-9 9-5 1 1-5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg> Surligneur${state.stabilo?" actif":""}</button>${nbHl?`<button class="link-btn" data-act="hl-clear">Effacer (${nbHl})</button>`:""}${state.stabilo?`<span class="muted stabilo-hint">Sélectionne du texte pour le surligner · tape un surlignage pour l'enlever</span>`:""}</div>`;
       body = `<div class="cours-block lecon-wrap ${state.stabilo?"stabilo":""}">
         ${bar}
         ${introHTML}
@@ -807,7 +842,7 @@
      =================================================================== */
   document.addEventListener("click", function(e){
     ensureAudio();
-    if (state.stabilo){ const hs = e.target.closest(".hl-s"); if (hs){ const seg=(location.hash||"").replace(/^#/,"").split("/").filter(Boolean); if(seg[0]==="chapitre"){ toggleHL(seg[1], +hs.getAttribute("data-hl"), hs); return; } } }
+    if (state.stabilo){ const mk = e.target.closest("mark.hl-on"); if (mk){ if(Date.now()-_hlGuard<350) return; const id=curChapId(); const pp=mk.closest("[data-p]"); if(id&&pp){ removeHLAt(id, +pp.getAttribute("data-p"), +mk.getAttribute("data-rs"), +mk.getAttribute("data-re")); return; } } }
     const el = e.target.closest("[data-act]"); if(!el) return;
     const act = el.getAttribute("data-act");
     switch(act){
@@ -898,6 +933,9 @@
       else if(g.answered && !g.exam){ if(g.sprint){} else if(g.survie && g.dead){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); endGame(); } } else if(e.key==="Enter"||e.key===" "){ e.preventDefault(); advance(); } }
     }
   });
+
+  document.addEventListener("mouseup", function(){ setTimeout(onStabiloSelect, 0); });
+  document.addEventListener("touchend", function(){ setTimeout(onStabiloSelect, 0); });
 
   applyTheme();
   dailyCheck();

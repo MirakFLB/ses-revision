@@ -744,3 +744,9 @@ a.src:hover { color: var(--gold); text-decoration: underline; text-underline-off
 .stabilo .hl-s:hover { background: rgba(255,225,77,.28); }
 .stabilo .hl-s.hl-on:hover { background: #ffd000; }
 
+
+/* ---- Surligneur : sélection libre ---- */
+mark.hl-on { background: #ffe14d; color: #1a1206; border-radius: 3px; padding: 0 1px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.lecon-wrap.stabilo { cursor: text; }
+.lecon-wrap.stabilo mark.hl-on { cursor: pointer; }
+
