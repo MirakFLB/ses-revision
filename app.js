@@ -18,6 +18,9 @@
   function esc(s){ return String(s).replace(/[&<>"]/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;" }[m])); }
   function hl(t, toks){ let o = esc(t); toks.forEach(k => { if(!k) return; const r = new RegExp("(" + k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + ")","ig"); o = o.replace(r,"<mark>$1</mark>"); }); return o; }
   function shuffle(a){ a = a.slice(); for (let i = a.length-1; i>0; i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  // Clé d'unicité d'une question (texte normalisé) — pour éliminer les doublons, dans la banque comme dans une partie.
+  function qKey(it){ const d=(it&&it.d)||{}; return (it.kind||"")+"|"+String(d.q||d.s||d.t||d.a||"").toLowerCase().replace(/\s+/g," ").trim(); }
+  function dedupe(arr){ const seen=new Set(), out=[]; for(const it of (arr||[])){ const k=qKey(it); if(seen.has(k)) continue; seen.add(k); out.push(it); } return out; }
   function norm(s){ return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]/g,""); }
   function todayStr(){ const d = new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
   function dayBefore(str){ const p=str.split("-"); const d=new Date(+p[0],+p[1]-1,+p[2]); d.setDate(d.getDate()-1); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
@@ -508,7 +511,8 @@
   function buildSession(mode, scope){
     const chs = chaptersInScope(scope);
     const s = { mode, scope, i:0, correct:0, wrong:0, answered:false, picked:null, flipped:false, items:[], answers:[], startMs:Date.now(), combo:0, coinMult:1, rewarded:false };
-    const collect = kind => { const out=[]; chs.forEach(c=>{ (QUIZ[c.id]&&QUIZ[c.id][kind]||[]).forEach(d=>out.push({kind, d, c})); }); return out; };
+    const collect = kind => { const out=[]; chs.forEach(c=>{ (QUIZ[c.id]&&QUIZ[c.id][kind]||[]).forEach(d=>out.push({kind, d, c})); }); return dedupe(out); };
+    const collectAll = kind => { const out=[]; orderedChapters.forEach(c=>{ (QUIZ[c.id]&&QUIZ[c.id][kind]||[]).forEach(d=>out.push({kind, d, c})); }); return dedupe(out); };
     if (mode==="qcm")  s.items = shuffle(collect("qcm")).slice(0,12);
     else if (mode==="vf") s.items = shuffle(collect("vf")).slice(0,14);
     else if (mode==="trous") s.items = shuffle(collect("trous")).slice(0,12);
@@ -516,7 +520,7 @@
       const epool = orderedChapters.filter(c=>c.ecrit);
       const q=[]; epool.forEach(c=>(QUIZ[c.id].qcm||[]).forEach(d=>q.push({kind:"qcm",d,c})));
       const v=[]; epool.forEach(c=>(QUIZ[c.id].vf||[]).forEach(d=>v.push({kind:"vf",d,c})));
-      s.items = shuffle(shuffle(q).slice(0,8).concat(shuffle(v).slice(0,4)));
+      s.items = shuffle(shuffle(dedupe(q)).slice(0,8).concat(shuffle(dedupe(v)).slice(0,4)));
       s.exam = true;
     } else if (mode==="flash"){
       const cards=[]; chs.forEach(c=>(CONTENT[c.id]&&CONTENT[c.id].notions||[]).forEach((nn,idx)=>cards.push({kind:"flash", d:nn, c, nid:c.id+"#n"+idx})));
@@ -526,12 +530,12 @@
     } else if (mode==="objectifs"){
       const obs=[]; chs.forEach(c=>c.objectifs.forEach((o,idx)=>obs.push({kind:"objectif", d:{text:objText(o),subs:objSubs(o)}, c, oid:c.id+"#o"+idx})));
       s.items = shuffle(obs);
-    } else if (mode==="sprint"){
-      let pool = collect("qcm"); if (pool.length<10) pool = pool.concat(collect("qcm"));
-      s.items = shuffle(pool); s.sprint = true; s.deadline = Date.now()+60000;
-    } else if (mode==="survie"){
-      let pool = collect("qcm"); if (pool.length<12) pool = pool.concat(collect("qcm"), collect("qcm"));
-      s.items = shuffle(pool); s.survie = true;
+    } else if (mode==="sprint" || mode==="survie"){
+      // Modes arcade : on tire du banc COMPLET dédoublonné (jamais de répétition dans une partie).
+      // Si le chapitre choisi offre déjà assez de variété (>=25 QCM distincts), on le respecte ; sinon on élargit à tout.
+      let pool = collect("qcm"); if (pool.length < 25) pool = collectAll("qcm");
+      s.items = shuffle(pool);
+      if (mode==="sprint"){ s.sprint = true; s.deadline = Date.now()+60000; } else { s.survie = true; }
     } else if (mode==="match"){
       buildMatchRound(s, chs);
     }
