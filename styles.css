@@ -763,4 +763,22 @@ mark.hl-on { background: #ffe14d; color: #1a1206; border-radius: 3px; padding: 0
 .schema-block h4 { margin: 0 0 7px; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--accent); }
 .schema-ul { margin: 0; padding-left: 18px; }
 .schema-ul li { font-size: 13.7px; line-height: 1.5; color: var(--text-2); margin-bottom: 7px; }
+/* table de mobilité */
+.mob-wrap { font-family: var(--sans); }
+.mob-top { font-size: 11.5px; color: var(--text-2); margin: 0 0 6px; text-align: center; }
+.mob-side { font-size: 11.5px; color: var(--text-2); margin: 7px 0 0; text-align: center; }
+.mob-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.mob-table th, .mob-table td { border: 1px solid var(--line); padding: 6px 4px; text-align: center; }
+.mob-table thead th { background: var(--bg-3); color: var(--text); font-weight: 700; font-size: 11.5px; line-height: 1.15; }
+.mob-table tbody th { background: var(--bg-3); color: var(--text); font-weight: 600; text-align: left; padding-left: 7px; white-space: nowrap; }
+.mob-corner { font-size: 10.5px !important; color: var(--text-3) !important; font-weight: 600 !important; }
+.mob-table td { color: var(--text-2); }
+.mob-diag { background: var(--accent-soft); color: var(--text); font-weight: 700; }
+.mob-tot { color: var(--text-3); font-weight: 600; }
+.mob-rowhl th, .mob-rowhl td { box-shadow: inset 0 0 0 1px var(--socio); }
+.mob-cellhl { outline: 2px solid var(--socio); outline-offset: -2px; }
+.mob-legend { font-size: 11px; color: var(--text-3); margin-top: 9px; line-height: 1.5; text-align: center; }
+.mob-key { display: inline-block; width: 11px; height: 11px; border-radius: 3px; vertical-align: -1px; }
+.mob-keydiag { background: var(--accent-soft); border: 1px solid var(--line-2); }
+.mob-keyhl { outline: 2px solid var(--socio); outline-offset: -2px; background: transparent; }
 

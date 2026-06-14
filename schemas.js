@@ -212,6 +212,40 @@ window.SES_SCHEMAS = [
       "Soutenabilité faible : capital naturel substituable par du capital technique. Soutenabilité forte : certains capitaux naturels sont irremplaçables.",
       "Décliné en politiques publiques : COP climat, lois de transition énergétique, ODD de l'ONU."
     ]
+  },
+
+  /* ---------- 7. TABLE DE MOBILITÉ ---------- */
+  {
+    id: "table-mobilite",
+    titre: "Lire une table de mobilité (destinée & recrutement)",
+    chap: "Mobilité sociale",
+    accent: "socio",
+    svg: `<div class="mob-wrap">
+      <div class="mob-top">↓ lire une <b>colonne</b> = <b>recrutement</b> (d'où viennent-ils ?)</div>
+      <table class="mob-table">
+        <thead><tr><th class="mob-corner">Père&nbsp;↓ / Fils&nbsp;→</th><th>Indép.</th><th>Cadre</th><th>Interm.<br>Employé</th><th>Ouvrier</th><th class="mob-tot">Total</th></tr></thead>
+        <tbody>
+          <tr><th>Indépendant</th><td class="mob-diag">25</td><td>20</td><td>30</td><td>25</td><td class="mob-tot">100</td></tr>
+          <tr><th>Cadre</th><td>10</td><td class="mob-diag">52</td><td>28</td><td>10</td><td class="mob-tot">100</td></tr>
+          <tr><th>Interm./Empl.</th><td>8</td><td>30</td><td class="mob-diag">40</td><td>22</td><td class="mob-tot">100</td></tr>
+          <tr class="mob-rowhl"><th>Ouvrier</th><td>9</td><td>12</td><td>32</td><td class="mob-diag mob-cellhl">47</td><td class="mob-tot">100</td></tr>
+        </tbody>
+      </table>
+      <div class="mob-side">→ lire une <b>ligne</b> = <b>destinée</b> (que deviennent les fils ?)</div>
+      <div class="mob-legend"><span class="mob-key mob-keydiag"></span> diagonale = immobilité (reproduction) &nbsp;·&nbsp; <span class="mob-key mob-keyhl"></span> exemple lu ci-dessous &nbsp;·&nbsp; table de <i>destinée</i> (chaque ligne = 100&nbsp;%, chiffres illustratifs)</div>
+    </div>`,
+    lecture: [
+      "Une table de mobilité croise l'origine sociale (la PCS du père, en lignes) et la position atteinte (la PCS du fils, en colonnes).",
+      "Lire une LIGNE = la table de destinée (« l'avenir ») : sur 100 fils d'ouvriers, 47 sont ouvriers, 32 professions intermédiaires/employés, 12 cadres, 9 indépendants. On part de l'origine et on suit ce que deviennent les enfants.",
+      "Lire une COLONNE = la table de recrutement : on part d'une position d'arrivée (ex. les cadres) et on remonte aux origines (« d'où viennent-ils ? »).",
+      "La diagonale (père et fils dans la même catégorie) mesure l'immobilité, c'est-à-dire la reproduction sociale ; tout ce qui est hors diagonale est de la mobilité."
+    ],
+    retenir: [
+      "Destinée (lignes = 100 %) et recrutement (colonnes = 100 %) sont DEUX tables construites à partir des mêmes effectifs bruts, mais on ne les normalise pas dans le même sens.",
+      "Forte reproduction aux extrémités : fils de cadres souvent cadres (52), fils d'ouvriers souvent ouvriers (47). L'origine pèse lourd.",
+      "Mobilité observée = mobilité structurelle (forcée par l'évolution des emplois : moins d'agriculteurs/ouvriers, plus de cadres) + fluidité (mobilité nette, vraie égalité des chances).",
+      "Limites : tables longtemps centrées sur les hommes (père→fils), PCS agrégées, elles décrivent la mobilité mais ne mesurent pas directement la fluidité."
+    ]
   }
 
 ];
