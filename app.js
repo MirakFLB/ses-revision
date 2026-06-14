@@ -49,12 +49,14 @@
       powerups: r.powerups||{ freeze:0, boost:0 },
       boostActive: !!r.boostActive,
       lastDaily: r.lastDaily||"",
-      sound: r.sound!==undefined ? !!r.sound : true
+      sound: r.sound!==undefined ? !!r.sound : true,
+      hl: r.hl||{},
+      stabilo: !!r.stabilo
     };
     if (s.pv !== PROG_VERSION){ s.done = new Set(); s.objxp = {}; s.ncorr = {}; s.seen = new Set(); s.pv = PROG_VERSION; }
     return s;
   }
-  function save(){ try { localStorage.setItem(KEY, JSON.stringify({ done:[...state.done], leitner:state.leitner, objxp:state.objxp, ncorr:state.ncorr, xp:state.xp, badges:[...state.badges], streak:state.streak, best:state.best, stats:state.stats, daily:state.daily, ecritOnly:state.ecritOnly, coins:state.coins, owned:state.owned, equipped:state.equipped, powerups:state.powerups, boostActive:state.boostActive, lastDaily:state.lastDaily, sound:state.sound, seen:[...state.seen], pv:state.pv })); } catch(e){} }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify({ done:[...state.done], leitner:state.leitner, objxp:state.objxp, ncorr:state.ncorr, xp:state.xp, badges:[...state.badges], streak:state.streak, best:state.best, stats:state.stats, daily:state.daily, ecritOnly:state.ecritOnly, coins:state.coins, owned:state.owned, equipped:state.equipped, powerups:state.powerups, boostActive:state.boostActive, lastDaily:state.lastDaily, sound:state.sound, seen:[...state.seen], hl:state.hl, stabilo:state.stabilo, pv:state.pv })); } catch(e){} }
 
   /* ---------- gamification ---------- */
   const DAILY_GOAL = 80;
@@ -296,10 +298,18 @@
       ${blocks}</div>`;
   }
 
+  /* ---- surligneur : découpe un paragraphe en phrases surlignables ---- */
+  function hlText(text, ctx){
+    if (!ctx) return esc(text);
+    const segs = String(text).split(/(?<=[.!?…»])\s+/);
+    return segs.map(function(seg){ if(!seg) return ""; const i = ctx.i++; const on = ctx.hl.has(i) ? " hl-on" : ""; return '<span class="hl-s'+on+'" data-hl="'+i+'">'+esc(seg)+'</span>'; }).join(" ");
+  }
+  function toggleHL(id, idx, el){ var arr = state.hl[id] || (state.hl[id]=[]); var pos = arr.indexOf(idx); if(pos>=0){ arr.splice(pos,1); el.classList.remove("hl-on"); } else { arr.push(idx); el.classList.add("hl-on"); } save(); }
+
   /* ---- rendu d'un cours structuré (I / A / points + à retenir) ---- */
-  function lessonHTML(lecon){
+  function lessonHTML(lecon, ctx){
     if (!lecon || !lecon.parties) return "";
-    const paras = arr => (arr||[]).map(x=>`<p class="lec-p">${esc(x)}</p>`).join("");
+    const paras = arr => (arr||[]).map(x=>`<p class="lec-p">${hlText(x, ctx)}</p>`).join("");
     const parts = lecon.parties.map(P=>{
       const subs = (P.sub||[]).map(S=>`<div class="lec-sub"><h5 class="lec-h2">${esc(S.t)}</h5>${paras(S.p)}</div>`).join("");
       const trans = P.trans ? `<p class="lec-trans">${esc(P.trans)}</p>` : "";
@@ -328,9 +338,14 @@
         ${chiffres?`<h3 class="sub3" style="margin-top:24px">Chiffres-clés</h3><div class="figs">${chiffres}</div>`:""}
         ${ct.lecon?`<div class="toolbar" style="margin-top:24px"><button class="btn" data-act="tab" data-tab="lecon"><svg viewBox="0 0 24 24" width="17" height="17"><path d="M6 3h9l5 5v13H6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.7"/></svg> Lire le cours complet</button></div>`:""}</div>`;
     } else if (chapTab === "lecon"){
-      const lecon = lessonHTML(ct.lecon);
-      body = `<div class="cours-block lecon-wrap">
-        ${ct.lecon&&ct.lecon.intro?`<p class="coeur-text" style="margin-bottom:24px">${esc(ct.lecon.intro)}</p>`:""}
+      const ctx = { i:0, hl: new Set(state.hl[c.id]||[]) };
+      const introHTML = (ct.lecon&&ct.lecon.intro)?`<p class="coeur-text" style="margin-bottom:24px">${hlText(ct.lecon.intro, ctx)}</p>`:"";
+      const lecon = lessonHTML(ct.lecon, ctx);
+      const nbHl = (state.hl[c.id]||[]).length;
+      const bar = `<div class="stabilo-bar"><button class="btn ${state.stabilo?"":"ghost"}" data-act="stabilo"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M15 4l5 5-9 9-5 1 1-5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg> Surligneur${state.stabilo?" actif":""}</button>${nbHl?`<button class="link-btn" data-act="hl-clear">Effacer (${nbHl})</button>`:""}${state.stabilo?`<span class="muted stabilo-hint">Touche une phrase pour la surligner</span>`:""}</div>`;
+      body = `<div class="cours-block lecon-wrap ${state.stabilo?"stabilo":""}">
+        ${bar}
+        ${introHTML}
         ${lecon||`<p class="muted">Cours à venir.</p>`}</div>`;
     } else if (chapTab === "objectifs"){
       const cc=cp.cc, tg=cp.tg;
@@ -792,10 +807,13 @@
      =================================================================== */
   document.addEventListener("click", function(e){
     ensureAudio();
+    if (state.stabilo){ const hs = e.target.closest(".hl-s"); if (hs){ const seg=(location.hash||"").replace(/^#/,"").split("/").filter(Boolean); if(seg[0]==="chapitre"){ toggleHL(seg[1], +hs.getAttribute("data-hl"), hs); return; } } }
     const el = e.target.closest("[data-act]"); if(!el) return;
     const act = el.getAttribute("data-act");
     switch(act){
       case "toggle-obj": { const id=el.getAttribute("data-id"); if(state.done.has(id))state.done.delete(id);else state.done.add(id); const nb=checkBadges(); save(); announceBadges(nb); el.classList.toggle("done"); const seg=(location.hash||"").replace(/^#/,"").split("/").filter(Boolean); if(seg[0]==="chapitre") softRefreshChapter(seg[1]); renderSidebar(); break; }
+      case "stabilo": { state.stabilo=!state.stabilo; save(); const seg=(location.hash||"").replace(/^#/,"").split("/").filter(Boolean); if(seg[0]==="chapitre") view.innerHTML=renderChapter(seg[1]); break; }
+      case "hl-clear": { const seg=(location.hash||"").replace(/^#/,"").split("/").filter(Boolean); if(seg[0]==="chapitre"){ state.hl[seg[1]]=[]; save(); view.innerHTML=renderChapter(seg[1]); } break; }
       case "tab": chapTab=el.getAttribute("data-tab"); { const seg=(location.hash||"").replace(/^#/,"").split("/").filter(Boolean); view.innerHTML=renderChapter(seg[1]); } break;
       case "reset": if(confirm("Réinitialiser toute ta progression, XP et badges ?")){ localStorage.removeItem(KEY); state=load(); save(); route(); } break;
       case "hub-mode": hub.mode=el.getAttribute("data-mode"); view.innerHTML=renderHub(); break;

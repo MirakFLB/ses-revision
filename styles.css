@@ -734,3 +734,13 @@ a.src:hover { color: var(--gold); text-decoration: underline; text-underline-off
 .lecon-wrap { max-width: 760px; }
 .lecon-wrap .lec-p { font-size: 15px; line-height: 1.75; }
 
+
+/* ---- Surligneur (stabilo) ---- */
+.stabilo-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.stabilo-bar .btn { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; font-size: 14px; }
+.stabilo-hint { font-size: 12.5px; }
+.hl-on { background: #ffe14d; color: #1a1206; border-radius: 3px; padding: 0 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.stabilo .hl-s { cursor: pointer; border-radius: 3px; transition: background .12s; }
+.stabilo .hl-s:hover { background: rgba(255,225,77,.28); }
+.stabilo .hl-s.hl-on:hover { background: #ffd000; }
+
