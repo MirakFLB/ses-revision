@@ -750,3 +750,17 @@ mark.hl-on { background: #ffe14d; color: #1a1206; border-radius: 3px; padding: 0
 .lecon-wrap.stabilo { cursor: text; }
 .lecon-wrap.stabilo mark.hl-on { cursor: pointer; }
 
+/* ---- Page Schémas ---- */
+.schema-grid { display: grid; gap: 20px; margin-top: 22px; }
+@media (min-width: 1100px){ .schema-grid { grid-template-columns: 1fr 1fr; } }
+.schema-card { display: flex; flex-direction: column; }
+.schema-chap { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--text-3); margin: 0 0 3px; font-weight: 600; }
+.schema-svg { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius-s); padding: 12px; margin: 14px 0 4px; }
+.schema-svg svg { display: block; width: 100%; height: auto; font-family: var(--sans); }
+.schema-formule { margin: 10px 0 2px; padding: 9px 12px; background: var(--accent-soft); border-radius: var(--radius-s); font-size: 13.5px; font-weight: 600; color: var(--text); text-align: center; }
+.schema-cols { display: grid; gap: 16px; margin-top: 14px; }
+@media (min-width: 620px){ .schema-cols { grid-template-columns: 1fr 1fr; } }
+.schema-block h4 { margin: 0 0 7px; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--accent); }
+.schema-ul { margin: 0; padding-left: 18px; }
+.schema-ul li { font-size: 13.7px; line-height: 1.5; color: var(--text-2); margin-bottom: 7px; }
+

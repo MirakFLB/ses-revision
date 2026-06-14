@@ -444,6 +444,27 @@
     return `<div class="view fade" data-accent="gold"><p class="eyebrow">Savoir-faire</p><h1 class="display">Outils quantitatifs</h1><p class="lead">${esc(Q.intro)}</p>${groups}</div>`;
   }
 
+  function renderSchemas(){
+    const list = (window.SES_SCHEMAS||[]);
+    if (!list.length) return `<div class="view fade"><h1 class="display">Schémas</h1><p class="lead">Aucun schéma chargé.</p></div>`;
+    const cards = list.map(s=>{
+      const lecture = (s.lecture||[]).map(x=>`<li>${esc(x)}</li>`).join("");
+      const retenir = (s.retenir||[]).map(x=>`<li>${esc(x)}</li>`).join("");
+      const formule = s.formule?`<div class="schema-formule">${esc(s.formule)}</div>`:"";
+      return `<div class="card schema-card" data-accent="${esc(s.accent||'gold')}">
+        <p class="schema-chap">${esc(s.chap||"")}</p>
+        <h3>${esc(s.titre)}</h3>
+        <div class="schema-svg">${s.svg||""}</div>
+        ${formule}
+        <div class="schema-cols">
+          <div class="schema-block"><h4>Comment le lire</h4><ul class="schema-ul">${lecture}</ul></div>
+          <div class="schema-block"><h4>À retenir</h4><ul class="schema-ul">${retenir}</ul></div>
+        </div>
+      </div>`;
+    }).join("");
+    return `<div class="view fade" data-accent="rc"><p class="eyebrow">Visualiser</p><h1 class="display">Schémas &amp; courbes</h1><p class="lead">Les graphiques classiques de SES, annotés et expliqués : comment les lire, et ce qu'il faut en retenir le jour J.</p><div class="schema-grid">${cards}</div></div>`;
+  }
+
   /* ===================== GAME HUB ===================== */
   const MODES = [
     { id:"qcm",   icon:"❓", name:"QCM", desc:"Choisis la bonne réponse, explication immédiate." },
@@ -817,6 +838,7 @@
       case "chapitre": html=renderChapter(seg[1]); active="/programme"; break;
       case "methode": html=renderMethode(); active="/methode"; break;
       case "outils": html=renderOutils(); active="/outils"; break;
+      case "schemas": html=renderSchemas(); active="/schemas"; break;
       case "jouer": html = g ? renderGame() : renderHub(); active="/jouer"; break;
       case "profil": html=renderProfil(); active="/profil"; break;
       case "boutique": html=renderBoutique(); active="/boutique"; break;
