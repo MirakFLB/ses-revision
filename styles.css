@@ -782,3 +782,24 @@ mark.hl-on { background: #ffe14d; color: #1a1206; border-radius: 3px; padding: 0
 .mob-keydiag { background: var(--accent-soft); border: 1px solid var(--line-2); }
 .mob-keyhl { outline: 2px solid var(--socio); outline-offset: -2px; background: transparent; }
 
+/* ---- Velvet Aces (table privée secrète) ---- */
+.velvet-card { display: flex; gap: 18px; align-items: center; margin-top: 14px; background: linear-gradient(135deg, #0e2a1f, #08130d); border: 1px solid #1f5c3f; color: #eafff3; }
+.velvet-card .muted { color: #a9d8c1; }
+.velvet-card h3 { color: #fff; }
+.velvet-logo { flex: 0 0 auto; width: 64px; height: 84px; border-radius: 9px; background: #f6f3ea; color: #11251a; font-weight: 800; font-size: 30px; font-family: var(--serif); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(0,0,0,.4); position: relative; }
+.velvet-logo .vsuit { font-size: 18px; margin-left: 1px; align-self: flex-start; margin-top: 8px; }
+.velvet-logo.locked { background: #14241c; color: #4f7c64; border: 1px dashed #2f6b4c; font-size: 34px; box-shadow: none; }
+.velvet-body { flex: 1; min-width: 0; }
+.velvet-unlock { display: flex; gap: 9px; margin-top: 12px; flex-wrap: wrap; }
+.velvet-unlock input { flex: 1; min-width: 150px; padding: 10px 13px; border-radius: var(--radius-s); border: 1px solid #2f6b4c; background: #06120c; color: #eafff3; font-size: 15px; letter-spacing: .04em; }
+.velvet-unlock input:focus { outline: 2px solid #3fae78; outline-offset: 1px; }
+.velvet-unlock .btn { background: #d9b25a; color: #1a1206; border: 0; }
+.velvet-msg { margin: 9px 0 0; font-size: 13px; min-height: 16px; }
+.velvet-msg.bad { color: #ff9b8a; }
+.velvet-open { background: #d9b25a !important; color: #1a1206 !important; border: 0 !important; margin-top: 12px; }
+/* vue iframe */
+.velvet-view { display: flex; flex-direction: column; }
+.velvet-bar { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+.velvet-titlebar { font-family: var(--serif); font-weight: 700; color: var(--text-2); }
+.velvet-frame { width: 100%; height: calc(100vh - 150px); min-height: 560px; border: 1px solid var(--line); border-radius: var(--radius); background: #07100b; }
+

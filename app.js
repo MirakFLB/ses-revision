@@ -54,12 +54,13 @@
       lastDaily: r.lastDaily||"",
       sound: r.sound!==undefined ? !!r.sound : true,
       hl: r.hl||{},
-      stabilo: !!r.stabilo
+      stabilo: !!r.stabilo,
+      velvet: !!r.velvet
     };
     if (s.pv !== PROG_VERSION){ s.done = new Set(); s.objxp = {}; s.ncorr = {}; s.seen = new Set(); s.pv = PROG_VERSION; }
     return s;
   }
-  function save(){ try { localStorage.setItem(KEY, JSON.stringify({ done:[...state.done], leitner:state.leitner, objxp:state.objxp, ncorr:state.ncorr, xp:state.xp, badges:[...state.badges], streak:state.streak, best:state.best, stats:state.stats, daily:state.daily, ecritOnly:state.ecritOnly, coins:state.coins, owned:state.owned, equipped:state.equipped, powerups:state.powerups, boostActive:state.boostActive, lastDaily:state.lastDaily, sound:state.sound, seen:[...state.seen], hl:state.hl, stabilo:state.stabilo, pv:state.pv })); } catch(e){} }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify({ done:[...state.done], leitner:state.leitner, objxp:state.objxp, ncorr:state.ncorr, xp:state.xp, badges:[...state.badges], streak:state.streak, best:state.best, stats:state.stats, daily:state.daily, ecritOnly:state.ecritOnly, coins:state.coins, owned:state.owned, equipped:state.equipped, powerups:state.powerups, boostActive:state.boostActive, lastDaily:state.lastDaily, sound:state.sound, seen:[...state.seen], hl:state.hl, stabilo:state.stabilo, velvet:state.velvet, pv:state.pv })); } catch(e){} }
 
   /* ---------- gamification ---------- */
   const DAILY_GOAL = 80;
@@ -820,7 +821,56 @@
       <div class="shop-grid">${pows}</div>
       <h2 class="section">Titres</h2>
       <div class="shop-grid">${titles}</div>
+      ${renderVelvetTeaser()}
       <div class="toolbar" style="margin-top:28px"><a class="btn" href="#/jouer">Gagner plus d'écus →</a></div>
+    </div>`;
+  }
+
+  // Table privée « Velvet Aces » — cachée tant qu'on n'a pas VELVET_MIN écus.
+  // Déblocage par code secret (ne dépense AUCUN écu).
+  const VELVET_MIN = 5000;
+  function renderVelvetTeaser(){
+    if (state.velvet){
+      return `<h2 class="section">Table privée 🂡</h2>
+      <div class="card velvet-card unlocked">
+        <div class="velvet-logo">A<span class="vsuit">♠</span></div>
+        <div class="velvet-body"><h3>Velvet Aces — débloqué</h3>
+          <p class="muted">Blackjack &amp; Texas Hold'em en tête-à-tête contre le bot. Tes écus de révision ne servent pas ici — c'est juste pour souffler.</p>
+          <a class="btn velvet-open" href="#/velvet">Ouvrir la table privée →</a></div>
+      </div>`;
+    }
+    if (state.coins < VELVET_MIN) return ""; // totalement caché
+    return `<h2 class="section">🔒 ???</h2>
+      <div class="card velvet-card">
+        <div class="velvet-logo locked">🂠</div>
+        <div class="velvet-body"><h3>Une table privée se cache ici…</h3>
+          <p class="muted">Tu as réuni assez d'écus (${VELVET_MIN}+). Entre le <b>code secret</b> pour ouvrir la salle. <b>Tes écus ne seront pas dépensés.</b></p>
+          <div class="velvet-unlock">
+            <input id="velvet-code" type="text" placeholder="code secret…" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="24" />
+            <button class="btn" data-act="velvet-unlock">Déverrouiller</button>
+          </div>
+          <p class="velvet-msg" id="velvet-msg" aria-live="polite"></p></div>
+      </div>`;
+  }
+  function tryUnlockVelvet(){
+    const inp = document.getElementById("velvet-code");
+    const msg = document.getElementById("velvet-msg");
+    const code = (inp ? inp.value : "").trim().toLowerCase().replace(/[^a-z0-9]/g,"");
+    if (state.coins < VELVET_MIN){ if(msg) msg.textContent = "Il te faut d'abord 5000 écus."; return; }
+    if (code === "kimo"){
+      state.velvet = true; save(); sfx("buy"); confetti();
+      toast(`<span class="t-ico">🂡</span> Table privée <b>Velvet Aces</b> débloquée !`);
+      view.innerHTML = renderBoutique(); renderSidebar();
+    } else {
+      if(msg){ msg.textContent = "Code incorrect."; msg.classList.remove("ok"); msg.classList.add("bad"); }
+      sfx("wrong"); if(inp){ inp.value=""; inp.focus(); }
+    }
+  }
+  function renderVelvet(){
+    if (!state.velvet) return renderBoutique();
+    return `<div class="view fade velvet-view">
+      <div class="velvet-bar"><a class="btn ghost" href="#/boutique">← Retour à la boutique</a><span class="velvet-titlebar">Velvet Aces — Table privée</span></div>
+      <iframe class="velvet-frame" src="velvet-aces.html" title="Velvet Aces" loading="lazy"></iframe>
     </div>`;
   }
 
@@ -842,6 +892,7 @@
       case "jouer": html = g ? renderGame() : renderHub(); active="/jouer"; break;
       case "profil": html=renderProfil(); active="/profil"; break;
       case "boutique": html=renderBoutique(); active="/boutique"; break;
+      case "velvet": html=renderVelvet(); active="/boutique"; break;
       default: html=renderDashboard();
     }
     view.innerHTML = html;
@@ -900,11 +951,13 @@
       case "equip-title": { const id=el.getAttribute("data-id"); state.equipped.title=id; sfx("coin"); save(); view.innerHTML=renderBoutique(); renderSidebar(); break; }
       case "buy-pow": { const id=el.getAttribute("data-id"); const pw=POWERUPS.find(x=>x.id===id); if(!pw) break; if(state.coins>=pw.price){ state.coins-=pw.price; state.powerups[id]=(state.powerups[id]||0)+1; sfx("buy"); save(); toast(`<span class="t-ico">${pw.icon}</span> ${esc(pw.name)} acheté !`); view.innerHTML=renderBoutique(); renderSidebar(); } else { toast(`Il te manque ${pw.price-state.coins} ${COIN}.`); } break; }
       case "use-boost": { if((state.powerups.boost||0)>0 && !state.boostActive){ state.powerups.boost--; state.boostActive=true; sfx("coin"); save(); toast(`<span class="t-ico">⚡</span> Boost ×2 armé pour ta prochaine partie !`); view.innerHTML=renderBoutique(); } break; }
+      case "velvet-unlock": tryUnlockVelvet(); break;
     }
   });
   document.addEventListener("change", function(e){ if(e.target&&e.target.id==="ecritOnly"){ state.ecritOnly=e.target.checked; save(); view.innerHTML=renderProgramme(); } else if(e.target&&e.target.id==="soundToggle"){ state.sound=e.target.checked; save(); if(state.sound){ ensureAudio(); sfx("coin"); } } });
   document.addEventListener("keydown", function(e){
     if (e.key==="Enter" && e.target && e.target.id==="trou-input"){ e.preventDefault(); submitTrou(); return; }
+    if (e.key==="Enter" && e.target && e.target.id==="velvet-code"){ e.preventDefault(); tryUnlockVelvet(); return; }
   });
 
   function softRefreshChapter(id){
